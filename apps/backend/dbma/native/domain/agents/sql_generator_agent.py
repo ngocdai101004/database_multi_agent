@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Optional
+
 from dbma.native.domain.agent import Agent
+
 
 class SQLGeneratorAgent(Agent):
     """Agent responsible for generating SQL queries from natural language."""
