@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
 
+
 class Agent(ABC):
     """Abstract base class defining the interface for all agents in the system."""
     

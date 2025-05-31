@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
+
 class NotificationService(ABC):
     """Interface for notification and alert services."""
     

@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Optional
+
 from dbma.native.domain.agent import Agent
+
 
 class ExecutorAgent(Agent):
     """Agent responsible for executing SQL queries."""
