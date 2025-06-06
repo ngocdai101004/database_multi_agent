@@ -1,6 +1,8 @@
 from typing import Any, Dict, List, Optional
+
 import aiohttp
 from dbma.interface.services.notification_service import NotificationService
+
 
 class SlackNotificationService(NotificationService):
     """Slack implementation of the notification service."""

@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Optional
+
 from dbma.native.domain.agent import Agent
+
 
 class ContextRetrieverAgent(Agent):
     """Agent responsible for retrieving relevant context and database schema."""

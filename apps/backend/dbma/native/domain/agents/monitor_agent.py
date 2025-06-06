@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Optional
+
 from dbma.native.domain.agent import Agent
+
 
 class MonitorAgent(Agent):
     """Agent responsible for system monitoring and quota management."""

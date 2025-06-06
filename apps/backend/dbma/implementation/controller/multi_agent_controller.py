@@ -1,18 +1,14 @@
-from typing import Any, Dict, List, Optional
 import asyncio
 import logging
 from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 from dbma.native.controller.agent_controller import AgentController
-from dbma.native.domain.agents import (
-    PlannerAgent,
-    ContextRetrieverAgent,
-    SQLGeneratorAgent,
-    ExecutorAgent,
-    VerifierAgent,
-    ReporterAgent,
-    MonitorAgent
-)
+from dbma.native.domain.agents import (ContextRetrieverAgent, ExecutorAgent,
+                                       MonitorAgent, PlannerAgent,
+                                       ReporterAgent, SQLGeneratorAgent,
+                                       VerifierAgent)
+
 
 class MultiAgentController(AgentController):
     """Concrete implementation of AgentController for coordinating multiple agents."""

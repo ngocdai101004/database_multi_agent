@@ -1,6 +1,8 @@
 from typing import Any, Dict, List, Optional
+
 import asyncpg
 from dbma.interface.services.database_service import DatabaseService
+
 
 class PostgresDatabaseService(DatabaseService):
     """PostgreSQL implementation of the database service."""
