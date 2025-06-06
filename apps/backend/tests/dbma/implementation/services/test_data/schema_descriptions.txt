@@ -1,0 +1,45 @@
+# Schema Descriptions
+
+## sales_schema
+This schema manages all sales and customer-related data. It includes:
+- Customer information (personal details, contact info, location)
+- Product catalog (details, pricing, categories)
+- Order management (orders, order items, payment status)
+- Sales tracking (transactions, revenue, discounts)
+- Customer behavior analysis (purchase history, preferences)
+- Sales performance metrics (by region, product, time period)
+
+## inventory_schema
+This schema handles all inventory and supply chain operations. It includes:
+- Product inventory (stock levels, locations, SKUs)
+- Warehouse management (locations, capacity, zones)
+- Stock movements (transfers, adjustments, returns)
+- Supplier information (details, contracts, performance)
+- Purchase orders and receipts
+- Inventory valuation and costing
+- Stock alerts and reorder points
+- Supply chain tracking (shipments, deliveries)
+
+## hr_schema
+This schema manages all human resources and organizational data. It includes:
+- Employee records (personal info, employment history)
+- Department structure and reporting lines
+- Job positions and descriptions
+- Salary and compensation data
+- Attendance and leave tracking
+- Performance reviews and goals
+- Training and development records
+- Recruitment and hiring data
+- Employee benefits and policies
+
+## finance_schema
+This schema handles all financial and accounting data. It includes:
+- General ledger and chart of accounts
+- Financial transactions (income, expenses)
+- Bank accounts and reconciliations
+- Budget planning and tracking
+- Financial statements (P&L, balance sheet)
+- Tax records and calculations
+- Asset management and depreciation
+- Cost centers and profit centers
+- Financial reporting and analytics 

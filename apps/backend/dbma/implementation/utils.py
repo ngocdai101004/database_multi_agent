@@ -1,0 +1,13 @@
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, BaseMessage
+from dbma.native.domain.message import Message
+from dbma.native.domain.enum.sender_type import SenderType
+
+
+
+def convert_message_to_langchain_message(message: Message) -> BaseMessage:
+    if message.sender_type == SenderType.USER:
+        return HumanMessage(content=message.content)
+    elif message.sender_type == SenderType.AGENT:
+        return AIMessage(content=message.content)
+    else:
+        return SystemMessage(content=message.content)
