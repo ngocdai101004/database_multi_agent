@@ -1,0 +1,129 @@
+-- HR Schema Definition
+
+-- Departments table
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    description TEXT,
+    manager_id INT,
+    parent_department_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_department_id) REFERENCES departments(department_id)
+);
+
+-- Job Positions table
+CREATE TABLE job_positions (
+    position_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    department_id INT,
+    description TEXT,
+    min_salary DECIMAL(10,2),
+    max_salary DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+
+-- Employees table
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(20),
+    hire_date DATE,
+    position_id INT,
+    department_id INT,
+    manager_id INT,
+    salary DECIMAL(10,2),
+    status VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (position_id) REFERENCES job_positions(position_id),
+    FOREIGN KEY (department_id) REFERENCES departments(department_id),
+    FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
+);
+
+-- Employee History table
+CREATE TABLE employee_history (
+    history_id INT PRIMARY KEY,
+    employee_id INT,
+    position_id INT,
+    department_id INT,
+    manager_id INT,
+    salary DECIMAL(10,2),
+    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    change_type VARCHAR(20),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
+    FOREIGN KEY (position_id) REFERENCES job_positions(position_id),
+    FOREIGN KEY (department_id) REFERENCES departments(department_id),
+    FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
+);
+
+-- Attendance table
+CREATE TABLE attendance (
+    attendance_id INT PRIMARY KEY,
+    employee_id INT,
+    date DATE,
+    check_in TIMESTAMP,
+    check_out TIMESTAMP,
+    status VARCHAR(20),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+
+-- Leave Requests table
+CREATE TABLE leave_requests (
+    request_id INT PRIMARY KEY,
+    employee_id INT,
+    leave_type VARCHAR(50),
+    start_date DATE,
+    end_date DATE,
+    status VARCHAR(20),
+    reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+
+-- Performance Reviews table
+CREATE TABLE performance_reviews (
+    review_id INT PRIMARY KEY,
+    employee_id INT,
+    reviewer_id INT,
+    review_date DATE,
+    rating INT,
+    comments TEXT,
+    goals TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
+    FOREIGN KEY (reviewer_id) REFERENCES employees(employee_id)
+);
+
+-- Training Programs table
+CREATE TABLE training_programs (
+    program_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    status VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Employee Training table
+CREATE TABLE employee_training (
+    training_id INT PRIMARY KEY,
+    employee_id INT,
+    program_id INT,
+    status VARCHAR(20),
+    completion_date DATE,
+    score DECIMAL(5,2),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
+    FOREIGN KEY (program_id) REFERENCES training_programs(program_id)
+);
+
+-- Create indexes
+CREATE INDEX idx_employees_email ON employees(email);
+CREATE INDEX idx_employees_department ON employees(department_id);
+CREATE INDEX idx_attendance_employee ON attendance(employee_id);
+CREATE INDEX idx_attendance_date ON attendance(date);
+CREATE INDEX idx_leave_requests_employee ON leave_requests(employee_id);
+CREATE INDEX idx_performance_reviews_employee ON performance_reviews(employee_id);
+CREATE INDEX idx_employee_training_employee ON employee_training(employee_id); 
