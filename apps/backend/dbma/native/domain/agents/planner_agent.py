@@ -37,8 +37,3 @@ class PlannerAgent(Agent):
         
         result = await self.planner_service.plan(input_data['query'], input_data['context'])
         return result
-    
-    async def validate(self, result: Dict[str, Any]) -> bool:
-        """Validate the planning results."""
-        required_fields = ['detected_language', 'intent_type', 'entities', 'complexity_score']
-        return all(field in result for field in required_fields) 
