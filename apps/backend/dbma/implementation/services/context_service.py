@@ -5,6 +5,9 @@ from langchain_core.tools import Tool
 
 from dbma.interface.services.context_service import IContextService
 from dbma.interface.services.llm_service import ILLMService
+from dbma.interface.services.schema_storage_service import ISchemaStorageService
+from dbma.native.domain.tool import SchemaTool
+from langchain_core.tools import Tool
 
 instructions_prompt = """
 You are a helpful assistant with expertise in database schema analysis and query understanding.
@@ -46,14 +49,20 @@ class ContextOutput(BaseModel):
     enrich_query: str
 
 class ContextService(IContextService):
-    def __init__(self, llm_service: ILLMService):
+    llm_service: ILLMService
+    schema_storage_service: ISchemaStorageService
+    
+    def __init__(self, llm_service: ILLMService, schema_storage_service: ISchemaStorageService):
         self.llm_service = llm_service
+        self.schema_storage_service = schema_storage_service
+        self.get_schema_tool = SchemaTool(schema_storage_service)
+        self.get_schema_tool_langchain = self._convert_from_domain_tool_to_langchain_tool(self.get_schema_tool)
+        
+
 
     async def analyze_context(
         self, 
         query: str, 
-        schema_info: Dict[str, Any],
-        get_schema_tool: Any
     ) -> Dict[str, Any]:
         """
         Analyze the context of the query and determine the relevant schema and tables.
@@ -67,16 +76,12 @@ class ContextService(IContextService):
             Dict containing schema_name, schema details, used tables, and enriched query
         """
         # Create a tool for getting schema details
-        schema_tool = Tool(
-            name="get_schema_details",
-            description="Get detailed information about a database schema by its name",
-            func=get_schema_tool
-        )
+
 
         # Prepare the context for the LLM
         context = {
             "query": query,
-            "schema_info": schema_info
+            "schema_info": self.schema_storage_service.get_db_description()
         }
 
         messages = [
@@ -86,7 +91,7 @@ class ContextService(IContextService):
         ]
 
         chain = (
-            self.llm_service.llm.bind(tools=[schema_tool])
+            self.llm_service.llm.bind(tools=[self.get_schema_tool_langchain])
             .with_structured_output(ContextOutput)
         )
         
@@ -95,3 +100,15 @@ class ContextService(IContextService):
 
     async def get_usage_metrics(self) -> Dict[str, Any]:
         return self.llm_service.get_usage_metrics()
+
+
+    def _convert_from_domain_tool_to_langchain_tool(self, tool: SchemaTool) -> Tool:
+        def _get_schema_details(schema_name: str) -> str:
+            response = self.schema_storage_service.get_schema(schema_name)
+            return str(response)
+        
+        return Tool(
+            name="get_schema_details",
+            description="Get detailed information about a database schema by its name",
+            func=_get_schema_details
+        )

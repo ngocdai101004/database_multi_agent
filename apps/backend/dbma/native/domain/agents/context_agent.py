@@ -1,11 +1,20 @@
 from typing import Any, Dict, List, Optional
 
+from dbma.interface.services.context_service import IContextService
 from dbma.native.domain.agent import Agent
 
 
 class ContextRetrieverAgent(Agent):
     """Agent responsible for retrieving relevant context and database schema."""
     
+    context_service: IContextService
+    
+    def __init__(
+        self,
+        context_service: IContextService,
+    ):
+        self.context_service = context_service
+        
     async def execute(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         """Retrieve relevant context and schema information.
         
@@ -19,9 +28,7 @@ class ContextRetrieverAgent(Agent):
             - table_relationships: Dict
             - schema_info: Dict
         """
-        # TODO: Implement conversation history retrieval
-        # TODO: Implement schema loading
-        # TODO: Implement table relationship analysis
+        result = await self.context_service.analyze_context(input_data['query'], input_data['context'])
         return {}
     
     async def validate(self, result: Dict[str, Any]) -> bool:
