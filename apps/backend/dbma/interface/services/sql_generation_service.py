@@ -1,0 +1,19 @@
+from abc import ABC, abstractmethod
+from typing import List, Dict, Any
+from dbma.interface.services.sql_database_service import ISQLDatabaseService
+from langgraph.graph.graph import CompiledGraph
+
+class ISQLGenerationService(ABC):
+    @abstractmethod
+    async def generate_sql(self, query: str, schema_name: str) -> str:
+        """
+        Generate SQL query from natural language query
+        
+        Args:
+            query: Natural language query
+            schema_name: Name of the schema to use
+            
+        Returns:
+            Generated SQL query
+        """
+        pass
