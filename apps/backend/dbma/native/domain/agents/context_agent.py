@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from dbma.interface.services.context_service import IContextService
 from dbma.native.domain.agent import Agent
-
+from dbma.native.domain.agent_models import ContextAgentInput, ContextAgentResponse
 
 class ContextRetrieverAgent(Agent):
     """Agent responsible for retrieving relevant context and database schema."""
@@ -15,7 +15,7 @@ class ContextRetrieverAgent(Agent):
     ):
         self.context_service = context_service
         
-    async def execute(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def execute(self, input_data: ContextAgentInput) -> ContextAgentResponse:
         """Retrieve relevant context and schema information.
         
         Args:
@@ -23,15 +23,15 @@ class ContextRetrieverAgent(Agent):
             
         Returns:
             Dict containing:
-            - conversation_history: List[Dict]
-            - relevant_tables: List[str]
-            - table_relationships: Dict
-            - schema_info: Dict
+            - schema_name: str
+            - schema_description: str
+            - used_tables: List[str]
+            - enrich_query: str
         """
-        result = await self.context_service.analyze_context(input_data['query'], input_data['context'])
-        return {}
+        result: ContextAgentResponse = await self.context_service.analyze_context(input_data=input_data)
+        return result
     
     async def validate(self, result: Dict[str, Any]) -> bool:
         """Validate the context retrieval results."""
-        required_fields = ['conversation_history', 'relevant_tables', 'table_relationships', 'schema_info']
+        required_fields = ['schema_name', 'schema_description', 'used_tables', 'enrich_query']
         return all(field in result for field in required_fields) 

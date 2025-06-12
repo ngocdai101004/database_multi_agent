@@ -8,7 +8,7 @@ from dbma.implementation.services.openai_llm_service import OpenAILLMService
 from langchain_core.prompts import PromptTemplate
 from dbma.dependencies.container import Container
 from langgraph.graph.graph import CompiledGraph
-
+from dbma.native.domain.agent_models import SQLGeneratorAgentInput
 @pytest.fixture
 def sql_generation_graph(container: Container):
     return container.sql_generation_graph()
@@ -21,17 +21,14 @@ def sql_generation_service(sql_generation_graph: CompiledGraph):
 async def test_sql_generation_service(sql_generation_service: SQLGenerationService):
     # Arrange
     query = """
-    List the authors along with the number of papers they have written that meet all the following conditions:
-    The paper is published in a venue where at least one paper has been cited more than 10 times.
-    The paper has itself been cited more than 10 times.
-    The paper uses at least one dataset.
-    Only include authors who have written more than 2 such papers.
-    Sort the results by the number of qualifying papers in descending order.
-    """
-    schema_name = "cinema"
+    Please list the zip code (schools.zip_code) of all the charter schools (schools.type = 'charter') in Fresno County Office of Education (schools.district = 'Fresno County Office of Education')"""
+    schema_name = "california_schools"
+    used_tables = []
+    schema_description = ""
+    input_data = SQLGeneratorAgentInput(query=query, schema_name=schema_name, schema_description=schema_description, used_tables=used_tables)
     
     # Act
-    result = await sql_generation_service.generate_sql(query, schema_name)
+    result = await sql_generation_service.generate_sql(input_data=input_data)
     print("Query (in natural language): ", query)
     print("Query (in SQL): ", result)
     

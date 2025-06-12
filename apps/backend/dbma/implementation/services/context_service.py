@@ -8,6 +8,7 @@ from dbma.interface.services.llm_service import ILLMService
 from dbma.interface.services.schema_storage_service import ISchemaStorageService
 from dbma.native.domain.tool import SchemaTool
 from langchain_core.tools import Tool
+from dbma.native.domain.agent_models import ContextAgentInput, ContextAgentResponse
 
 instructions_prompt = """
 You are a helpful assistant with expertise in database schema analysis and query understanding.
@@ -44,7 +45,6 @@ Query: Show me the total sales by customer in Hanoi for the last quarter
 class ContextOutput(BaseModel):
     schema_name: str
     schema_description: str
-    schema_detail: str
     used_tables: List[str]
     enrich_query: str
 
@@ -62,7 +62,7 @@ class ContextService(IContextService):
 
     async def analyze_context(
         self, 
-        query: str, 
+        input_data: ContextAgentInput
     ) -> Dict[str, Any]:
         """
         Analyze the context of the query and determine the relevant schema and tables.
@@ -75,8 +75,7 @@ class ContextService(IContextService):
         Returns:
             Dict containing schema_name, schema details, used tables, and enriched query
         """
-        # Create a tool for getting schema details
-
+        query = input_data.query
 
         # Prepare the context for the LLM
         context = {
@@ -95,8 +94,13 @@ class ContextService(IContextService):
             .with_structured_output(ContextOutput)
         )
         
-        result = await chain.ainvoke(messages)
-        return result
+        result: ContextOutput = await chain.ainvoke(messages)
+        return ContextAgentResponse(
+            schema_name=result.schema_name,
+            schema_description=result.schema_description,
+            used_tables=result.used_tables,
+            enrich_query=result.enrich_query
+        )
 
     async def get_usage_metrics(self) -> Dict[str, Any]:
         return self.llm_service.get_usage_metrics()
@@ -104,7 +108,7 @@ class ContextService(IContextService):
 
     def _convert_from_domain_tool_to_langchain_tool(self, tool: SchemaTool) -> Tool:
         def _get_schema_details(schema_name: str) -> str:
-            response = self.schema_storage_service.get_schema(schema_name)
+            response = tool.get_schema(schema_name)
             return str(response)
         
         return Tool(

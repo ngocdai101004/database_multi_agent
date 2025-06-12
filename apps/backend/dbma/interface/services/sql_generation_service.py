@@ -2,10 +2,11 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Any
 from dbma.interface.services.sql_database_service import ISQLDatabaseService
 from langgraph.graph.graph import CompiledGraph
+from dbma.native.domain.agent_models import SQLGeneratorAgentInput, SQLGeneratorAgentResponse
 
 class ISQLGenerationService(ABC):
     @abstractmethod
-    async def generate_sql(self, query: str, schema_name: str) -> str:
+    async def generate_sql(self, input_data: SQLGeneratorAgentInput) -> SQLGeneratorAgentResponse:
         """
         Generate SQL query from natural language query
         

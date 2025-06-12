@@ -10,6 +10,7 @@ from langchain.output_parsers import PydanticOutputParser
 from dbma.native.domain.enum.sender_type import SenderType
 from dbma.native.domain.message import Message
 from dbma.implementation.utils import convert_message_to_langchain_message
+from dbma.native.domain.agent_models import PlannerAgentInput, PlannerAgentResponse
 
 instructions_prompt = """
 You are a helpful assistant with knowledge of the database and data analytics.
@@ -54,11 +55,13 @@ class PlannerService(IPlannerService):
 
     async def plan(
         self, 
-        input_message: Message,
-        context: Optional[Dict[str, Any]] = None
+        input_data: PlannerAgentInput
     ) -> Dict[str, Any]:
         format_instructions = self.parser.get_format_instructions()
         full_prompt = instructions_prompt + "\n\n" + format_instructions
+        input_message = input_data.query
+        context = input_data.context
+        
 
         # Prepare chat history for the LLM
         chat_history = []
@@ -72,6 +75,12 @@ class PlannerService(IPlannerService):
             convert_message_to_langchain_message(input_message)
         ]
 
-        chain = self.llm_service.llm | self.parser
-        result = await chain.ainvoke(messages)
-        return result
+        chain = self.llm_service.llm.with_structured_output(PlannerOutput)
+        result: PlannerOutput = await chain.ainvoke(messages)
+        return PlannerAgentResponse(
+            detected_language=result.detected_language,
+            intent_type=result.intent_type,
+            entities=result.entities,
+            complexity_score=result.complexity_score,
+            rewritten_query=result.rewritten_query
+        )

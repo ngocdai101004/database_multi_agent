@@ -1,0 +1,103 @@
+
+CREATE TABLE "Examination" (
+	"ID" INTEGER, 
+	"Examination Date" DATE, 
+	"aCL IgG" REAL, 
+	"aCL IgM" REAL, 
+	"ANA" INTEGER, 
+	"ANA Pattern" TEXT, 
+	"aCL IgA" INTEGER, 
+	"Diagnosis" TEXT, 
+	"KCT" TEXT, 
+	"RVVT" TEXT, 
+	"LAC" TEXT, 
+	"Symptoms" TEXT, 
+	"Thrombosis" INTEGER, 
+	FOREIGN KEY("ID") REFERENCES "Patient" ("ID")
+)
+
+/*
+3 rows from Examination table:
+ID	Examination Date	aCL IgG	aCL IgM	ANA	ANA Pattern	aCL IgA	Diagnosis	KCT	RVVT	LAC	Symptoms	Thrombosis
+14872	1997-05-27	1.3	1.6	256	P	0	MCTD, AMI	None	None	-	AMI	1
+48473	1992-12-21	4.3	4.6	256	P,S	3	SLE	-	-	-	None	0
+102490	1995-04-20	2.3	2.5	0	None	4	PSS	None	None	None	None	0
+*/
+
+
+CREATE TABLE "Laboratory" (
+	"ID" INTEGER DEFAULT 0 NOT NULL, 
+	"Date" DATE DEFAULT '0000-00-00' NOT NULL, 
+	"GOT" INTEGER, 
+	"GPT" INTEGER, 
+	"LDH" INTEGER, 
+	"ALP" INTEGER, 
+	"TP" REAL, 
+	"ALB" REAL, 
+	"UA" REAL, 
+	"UN" INTEGER, 
+	"CRE" REAL, 
+	"T-BIL" REAL, 
+	"T-CHO" INTEGER, 
+	"TG" INTEGER, 
+	"CPK" INTEGER, 
+	"GLU" INTEGER, 
+	"WBC" REAL, 
+	"RBC" REAL, 
+	"HGB" REAL, 
+	"HCT" REAL, 
+	"PLT" INTEGER, 
+	"PT" REAL, 
+	"APTT" INTEGER, 
+	"FG" REAL, 
+	"PIC" INTEGER, 
+	"TAT" INTEGER, 
+	"TAT2" INTEGER, 
+	"U-PRO" TEXT, 
+	"IGG" INTEGER, 
+	"IGA" INTEGER, 
+	"IGM" INTEGER, 
+	"CRP" TEXT, 
+	"RA" TEXT, 
+	"RF" TEXT, 
+	"C3" INTEGER, 
+	"C4" INTEGER, 
+	"RNP" TEXT, 
+	"SM" TEXT, 
+	"SC170" TEXT, 
+	"SSA" TEXT, 
+	"SSB" TEXT, 
+	"CENTROMEA" TEXT, 
+	"DNA" TEXT, 
+	"DNA-II" INTEGER, 
+	PRIMARY KEY ("ID", "Date"), 
+	FOREIGN KEY("ID") REFERENCES "Patient" ("ID")
+)
+
+/*
+3 rows from Laboratory table:
+ID	Date	GOT	GPT	LDH	ALP	TP	ALB	UA	UN	CRE	T-BIL	T-CHO	TG	CPK	GLU	WBC	RBC	HGB	HCT	PLT	PT	APTT	FG	PIC	TAT	TAT2	U-PRO	IGG	IGA	IGM	CRP	RA	RF	C3	C4	RNP	SM	SC170	SSA	SSB	CENTROMEA	DNA	DNA-II
+27654	1991-09-11	34	36	567	166	4.5	3.3	3.8	29	0.8	0.3	165	None	9	None	5.0	2.6	6.4	20.3	227	None	None	None	None	None	None	None	339	145	46	0.6	None	None	None	None	None	None	None	None	None	None	None	None
+27654	1991-09-17	29	31	579	154	5.1	3.4	4.2	36	0.8	None	None	None	None	None	10.4	2.9	6.7	21.6	242	None	None	None	None	None	None	None	771	188	132	0.6	None	None	None	None	None	None	None	None	None	None	None	None
+27654	1991-09-19	26	22	684	138	5.5	3.6	4.9	34	0.9	None	None	None	None	88	10.5	3.4	7.9	24.7	233	None	None	None	None	None	None	None	None	None	None	2.7	None	None	None	None	None	None	None	None	None	None	None	None
+*/
+
+
+CREATE TABLE "Patient" (
+	"ID" INTEGER DEFAULT 0 NOT NULL, 
+	"SEX" TEXT, 
+	"Birthday" DATE, 
+	"Description" DATE, 
+	"First Date" DATE, 
+	"Admission" TEXT, 
+	"Diagnosis" TEXT, 
+	PRIMARY KEY ("ID")
+)
+
+/*
+3 rows from Patient table:
+ID	SEX	Birthday	Description	First Date	Admission	Diagnosis
+2110	F	1934-02-13	1994-02-14	1993-02-10	+	RA susp.
+11408	F	1937-05-02	1996-12-01	1973-01-01	+	PSS
+12052	F	1956-04-14	1991-08-13	None	+	SLE
+*/

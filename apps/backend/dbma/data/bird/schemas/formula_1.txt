@@ -1,0 +1,282 @@
+
+CREATE TABLE "constructorResults" (
+	"constructorResultsId" INTEGER, 
+	"raceId" INTEGER DEFAULT 0 NOT NULL, 
+	"constructorId" INTEGER DEFAULT 0 NOT NULL, 
+	points REAL, 
+	status TEXT, 
+	PRIMARY KEY ("constructorResultsId"), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("constructorId") REFERENCES constructors ("constructorId")
+)
+
+/*
+3 rows from constructorResults table:
+constructorResultsId	raceId	constructorId	points	status
+1	18	1	14.0	None
+2	18	2	8.0	None
+3	18	3	9.0	None
+*/
+
+
+CREATE TABLE "constructorStandings" (
+	"constructorStandingsId" INTEGER, 
+	"raceId" INTEGER DEFAULT 0 NOT NULL, 
+	"constructorId" INTEGER DEFAULT 0 NOT NULL, 
+	points REAL DEFAULT 0 NOT NULL, 
+	position INTEGER, 
+	"positionText" TEXT, 
+	wins INTEGER DEFAULT 0 NOT NULL, 
+	PRIMARY KEY ("constructorStandingsId"), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("constructorId") REFERENCES constructors ("constructorId")
+)
+
+/*
+3 rows from constructorStandings table:
+constructorStandingsId	raceId	constructorId	points	position	positionText	wins
+1	18	1	14.0	1	1	1
+2	18	2	8.0	3	3	0
+3	18	3	9.0	2	2	0
+*/
+
+
+CREATE TABLE "driverStandings" (
+	"driverStandingsId" INTEGER, 
+	"raceId" INTEGER DEFAULT 0 NOT NULL, 
+	"driverId" INTEGER DEFAULT 0 NOT NULL, 
+	points REAL DEFAULT 0 NOT NULL, 
+	position INTEGER, 
+	"positionText" TEXT, 
+	wins INTEGER DEFAULT 0 NOT NULL, 
+	PRIMARY KEY ("driverStandingsId"), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("driverId") REFERENCES drivers ("driverId")
+)
+
+/*
+3 rows from driverStandings table:
+driverStandingsId	raceId	driverId	points	position	positionText	wins
+1	18	1	10.0	1	1	1
+2	18	2	8.0	2	2	0
+3	18	3	6.0	3	3	0
+*/
+
+
+CREATE TABLE "lapTimes" (
+	"raceId" INTEGER NOT NULL, 
+	"driverId" INTEGER NOT NULL, 
+	lap INTEGER NOT NULL, 
+	position INTEGER, 
+	time TEXT, 
+	milliseconds INTEGER, 
+	PRIMARY KEY ("raceId", "driverId", lap), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("driverId") REFERENCES drivers ("driverId")
+)
+
+/*
+3 rows from lapTimes table:
+raceId	driverId	lap	position	time	milliseconds
+1	1	1	13	1:49.088	109088
+1	1	2	12	1:33.740	93740
+1	1	3	11	1:31.600	91600
+*/
+
+
+CREATE TABLE "pitStops" (
+	"raceId" INTEGER NOT NULL, 
+	"driverId" INTEGER NOT NULL, 
+	stop INTEGER NOT NULL, 
+	lap INTEGER NOT NULL, 
+	time TEXT NOT NULL, 
+	duration TEXT, 
+	milliseconds INTEGER, 
+	PRIMARY KEY ("raceId", "driverId", stop), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("driverId") REFERENCES drivers ("driverId")
+)
+
+/*
+3 rows from pitStops table:
+raceId	driverId	stop	lap	time	duration	milliseconds
+841	1	1	16	17:28:24	23.227	23227
+841	1	2	36	17:59:29	23.199	23199
+841	2	1	15	17:27:41	22.994	22994
+*/
+
+
+CREATE TABLE circuits (
+	"circuitId" INTEGER, 
+	"circuitRef" TEXT DEFAULT '' NOT NULL, 
+	name TEXT DEFAULT '' NOT NULL, 
+	location TEXT, 
+	country TEXT, 
+	lat REAL, 
+	lng REAL, 
+	alt INTEGER, 
+	url TEXT DEFAULT '' NOT NULL, 
+	PRIMARY KEY ("circuitId")
+)
+
+/*
+3 rows from circuits table:
+circuitId	circuitRef	name	location	country	lat	lng	alt	url
+2	sepang	Sepang International Circuit	Kuala Lumpur	Malaysia	2.76083	101.738	None	http://en.wikipedia.org/wiki/Sepang_International_Circuit
+3	bahrain	Bahrain International Circuit	Sakhir	Bahrain	26.0325	50.5106	None	http://en.wikipedia.org/wiki/Bahrain_International_Circuit
+4	catalunya	Circuit de Barcelona-Catalunya	Montmeló	Spain	41.57	2.26111	None	http://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya
+*/
+
+
+CREATE TABLE constructors (
+	"constructorId" INTEGER, 
+	"constructorRef" TEXT DEFAULT '' NOT NULL, 
+	name TEXT DEFAULT '' NOT NULL, 
+	nationality TEXT, 
+	url TEXT DEFAULT '' NOT NULL, 
+	PRIMARY KEY ("constructorId")
+)
+
+/*
+3 rows from constructors table:
+constructorId	constructorRef	name	nationality	url
+1	mclaren	McLaren	British	http://en.wikipedia.org/wiki/McLaren
+2	bmw_sauber	BMW Sauber	German	http://en.wikipedia.org/wiki/BMW_Sauber
+3	williams	Williams	British	http://en.wikipedia.org/wiki/Williams_Grand_Prix_Engineering
+*/
+
+
+CREATE TABLE drivers (
+	"driverId" INTEGER, 
+	"driverRef" TEXT DEFAULT '' NOT NULL, 
+	number INTEGER, 
+	code TEXT, 
+	forename TEXT DEFAULT '' NOT NULL, 
+	surname TEXT DEFAULT '' NOT NULL, 
+	dob DATE, 
+	nationality TEXT, 
+	url TEXT DEFAULT '' NOT NULL, 
+	PRIMARY KEY ("driverId")
+)
+
+/*
+3 rows from drivers table:
+driverId	driverRef	number	code	forename	surname	dob	nationality	url
+1	hamilton	44	HAM	Lewis	Hamilton	1985-01-07	British	http://en.wikipedia.org/wiki/Lewis_Hamilton
+2	heidfeld	None	HEI	Nick	Heidfeld	1977-05-10	German	http://en.wikipedia.org/wiki/Nick_Heidfeld
+3	rosberg	6	ROS	Nico	Rosberg	1985-06-27	German	http://en.wikipedia.org/wiki/Nico_Rosberg
+*/
+
+
+CREATE TABLE qualifying (
+	"qualifyId" INTEGER, 
+	"raceId" INTEGER DEFAULT 0 NOT NULL, 
+	"driverId" INTEGER DEFAULT 0 NOT NULL, 
+	"constructorId" INTEGER DEFAULT 0 NOT NULL, 
+	number INTEGER DEFAULT 0 NOT NULL, 
+	position INTEGER, 
+	q1 TEXT, 
+	q2 TEXT, 
+	q3 TEXT, 
+	PRIMARY KEY ("qualifyId"), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("driverId") REFERENCES drivers ("driverId"), 
+	FOREIGN KEY("constructorId") REFERENCES constructors ("constructorId")
+)
+
+/*
+3 rows from qualifying table:
+qualifyId	raceId	driverId	constructorId	number	position	q1	q2	q3
+1	18	1	1	22	1	1:26.572	1:25.187	1:26.714
+2	18	9	2	4	2	1:26.103	1:25.315	1:26.869
+3	18	5	1	23	3	1:25.664	1:25.452	1:27.079
+*/
+
+
+CREATE TABLE races (
+	"raceId" INTEGER, 
+	year INTEGER DEFAULT 0 NOT NULL, 
+	round INTEGER DEFAULT 0 NOT NULL, 
+	"circuitId" INTEGER DEFAULT 0 NOT NULL, 
+	name TEXT DEFAULT '' NOT NULL, 
+	date DATE DEFAULT '0000-00-00' NOT NULL, 
+	time TEXT, 
+	url TEXT, 
+	PRIMARY KEY ("raceId"), 
+	FOREIGN KEY(year) REFERENCES seasons (year), 
+	FOREIGN KEY("circuitId") REFERENCES circuits ("circuitId"), 
+	UNIQUE (url)
+)
+
+/*
+3 rows from races table:
+raceId	year	round	circuitId	name	date	time	url
+1	2009	1	1	Australian Grand Prix	2009-03-29	06:00:00	http://en.wikipedia.org/wiki/2009_Australian_Grand_Prix
+2	2009	2	2	Malaysian Grand Prix	2009-04-05	09:00:00	http://en.wikipedia.org/wiki/2009_Malaysian_Grand_Prix
+3	2009	3	17	Chinese Grand Prix	2009-04-19	07:00:00	http://en.wikipedia.org/wiki/2009_Chinese_Grand_Prix
+*/
+
+
+CREATE TABLE results (
+	"resultId" INTEGER, 
+	"raceId" INTEGER DEFAULT 0 NOT NULL, 
+	"driverId" INTEGER DEFAULT 0 NOT NULL, 
+	"constructorId" INTEGER DEFAULT 0 NOT NULL, 
+	number INTEGER, 
+	grid INTEGER DEFAULT 0 NOT NULL, 
+	position INTEGER, 
+	"positionText" TEXT DEFAULT '' NOT NULL, 
+	"positionOrder" INTEGER DEFAULT 0 NOT NULL, 
+	points REAL DEFAULT 0 NOT NULL, 
+	laps INTEGER DEFAULT 0 NOT NULL, 
+	time TEXT, 
+	milliseconds INTEGER, 
+	"fastestLap" INTEGER, 
+	rank INTEGER DEFAULT 0, 
+	"fastestLapTime" TEXT, 
+	"fastestLapSpeed" TEXT, 
+	"statusId" INTEGER DEFAULT 0 NOT NULL, 
+	PRIMARY KEY ("resultId"), 
+	FOREIGN KEY("raceId") REFERENCES races ("raceId"), 
+	FOREIGN KEY("driverId") REFERENCES drivers ("driverId"), 
+	FOREIGN KEY("constructorId") REFERENCES constructors ("constructorId"), 
+	FOREIGN KEY("statusId") REFERENCES status ("statusId")
+)
+
+/*
+3 rows from results table:
+resultId	raceId	driverId	constructorId	number	grid	position	positionText	positionOrder	points	laps	time	milliseconds	fastestLap	rank	fastestLapTime	fastestLapSpeed	statusId
+1	18	1	1	22	1	1	1	1	10.0	58	1:34:50.616	5690616	39	2	1:27.452	218.300	1
+2	18	2	2	3	5	2	2	2	8.0	58	+5.478	5696094	41	3	1:27.739	217.586	1
+3	18	3	3	7	7	3	3	3	6.0	58	+8.163	5698779	41	5	1:28.090	216.719	1
+*/
+
+
+CREATE TABLE seasons (
+	year INTEGER DEFAULT 0 NOT NULL, 
+	url TEXT DEFAULT '' NOT NULL, 
+	PRIMARY KEY (year)
+)
+
+/*
+3 rows from seasons table:
+year	url
+1950	http://en.wikipedia.org/wiki/1950_Formula_One_season
+1951	http://en.wikipedia.org/wiki/1951_Formula_One_season
+1952	http://en.wikipedia.org/wiki/1952_Formula_One_season
+*/
+
+
+CREATE TABLE status (
+	"statusId" INTEGER, 
+	status TEXT DEFAULT '' NOT NULL, 
+	PRIMARY KEY ("statusId")
+)
+
+/*
+3 rows from status table:
+statusId	status
+1	Finished
+2	Disqualified
+3	Accident
+*/
