@@ -1,9 +1,13 @@
-from typing import TypedDict, List, Optional
-from pydantic import BaseModel, Field
+from typing import List, Optional, TypedDict
+
+from dbma.interface.services.sql_generation_service import \
+    ISQLGenerationService
+from dbma.native.domain.agent_models import (MultiAgentResponse,
+                                             SQLGeneratorAgentInput)
 from langchain_core.messages import BaseMessage
 from langgraph.graph.graph import CompiledGraph
-from dbma.interface.services.sql_generation_service import ISQLGenerationService
-from dbma.native.domain.agent_models import MultiAgentResponse, SQLGeneratorAgentInput
+from pydantic import BaseModel, Field
+
 
 class SQLGenerationService(ISQLGenerationService):
     def __init__(self, graph: CompiledGraph):

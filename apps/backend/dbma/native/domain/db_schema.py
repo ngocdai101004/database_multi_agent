@@ -1,5 +1,6 @@
-from typing import List
 from pathlib import Path
+from typing import List
+
 
 class DBSchema:
     schema_name: str

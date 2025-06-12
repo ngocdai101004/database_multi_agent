@@ -8,7 +8,6 @@ from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
                                      SystemMessage)
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-
 load_dotenv()
 
 class GeminiLLMService(ILLMService):

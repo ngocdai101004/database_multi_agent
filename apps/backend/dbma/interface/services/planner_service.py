@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
-from dbma.native.domain.agent_models import PlannerAgentInput, PlannerAgentResponse
+
+from dbma.native.domain.agent_models import (PlannerAgentInput,
+                                             PlannerAgentResponse)
 
 
 class IPlannerService(ABC):

@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 from langchain.tools import BaseTool
+
 
 class ISQLDatabaseService(ABC):
     """Interface for SQL database service"""

@@ -1,10 +1,13 @@
-import pytest
 from pathlib import Path
 from unittest.mock import Mock, patch
-from dbma.implementation.services.sql_database_service import SQLDatabaseService
-from dbma.implementation.services.openai_llm_service import OpenAILLMService
-from langchain_community.utilities import SQLDatabase
+
+import pytest
 from dbma.dependencies.container import Container
+from dbma.implementation.services.openai_llm_service import OpenAILLMService
+from dbma.implementation.services.sql_database_service import \
+    SQLDatabaseService
+from langchain_community.utilities import SQLDatabase
+
 
 @pytest.fixture
 def schema_name():

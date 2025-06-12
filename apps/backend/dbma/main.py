@@ -1,11 +1,11 @@
 import logging
+from urllib.parse import quote_plus
 
 import uvicorn
-from fastapi import FastAPI
 from dbma.dependencies.container import init_container
 from dbma.protocols.http.text2sql.router import Text2SQLRouter
+from fastapi import FastAPI
 
-from urllib.parse import quote_plus
 
 def config_logging(*args, **kwargs):
     root_logger = logging.getLogger()

@@ -1,11 +1,14 @@
-from dbma.interface.services.schema_storage_service import ISchemaStorageService
-from pathlib import Path
-from dbma.native.domain.db_schema import DBSchema
-from typing import Dict, List
-import re
-import os
-import sys
 import csv
+import os
+import re
+import sys
+from pathlib import Path
+from typing import Dict, List
+
+from dbma.interface.services.schema_storage_service import \
+    ISchemaStorageService
+from dbma.native.domain.db_schema import DBSchema
+
 # Add data directory to sys.path
 sys.path.append(os.getcwd())
 

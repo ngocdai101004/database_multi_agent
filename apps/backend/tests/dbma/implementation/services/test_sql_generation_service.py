@@ -1,14 +1,19 @@
-import pytest
 from pathlib import Path
-from unittest.mock import Mock, patch, AsyncMock
-from langchain_core.language_models import BaseChatModel
-from dbma.implementation.services.sql_database_service import SQLDatabaseService
-from dbma.implementation.services.sql_generation_service import SQLGenerationService
-from dbma.implementation.services.openai_llm_service import OpenAILLMService
-from langchain_core.prompts import PromptTemplate
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 from dbma.dependencies.container import Container
-from langgraph.graph.graph import CompiledGraph
+from dbma.implementation.services.openai_llm_service import OpenAILLMService
+from dbma.implementation.services.sql_database_service import \
+    SQLDatabaseService
+from dbma.implementation.services.sql_generation_service import \
+    SQLGenerationService
 from dbma.native.domain.agent_models import SQLGeneratorAgentInput
+from langchain_core.language_models import BaseChatModel
+from langchain_core.prompts import PromptTemplate
+from langgraph.graph.graph import CompiledGraph
+
+
 @pytest.fixture
 def sql_generation_graph(container: Container):
     return container.sql_generation_graph()

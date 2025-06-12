@@ -3,13 +3,14 @@ import time
 import uuid
 from typing import Any, Optional, Tuple
 
-from dependency_injector.wiring import Provide, inject
-from fastapi import Request
 from dbma.dependencies.container import Container
 from dbma.native.controller.multi_agent_controller import MultiAgentController
-from dbma.native.domain.message import Message
-from dbma.protocols.models.sql_generation import Text2SQLRequest, Text2SQLResponse
 from dbma.native.domain.agent_models import SQLGeneratorAgentResponse
+from dbma.native.domain.message import Message
+from dbma.protocols.models.sql_generation import (Text2SQLRequest,
+                                                  Text2SQLResponse)
+from dependency_injector.wiring import Provide, inject
+from fastapi import Request
 
 logger = logging.getLogger("sbf")
 

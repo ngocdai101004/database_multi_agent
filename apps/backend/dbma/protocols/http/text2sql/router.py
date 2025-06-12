@@ -1,8 +1,9 @@
 from typing import Any
 
-from fastapi import APIRouter
 from dbma.protocols.http.text2sql.controller import Text2SQLController
-from dbma.protocols.models.sql_generation import Text2SQLRequest, Text2SQLResponse
+from dbma.protocols.models.sql_generation import (Text2SQLRequest,
+                                                  Text2SQLResponse)
+from fastapi import APIRouter
 
 
 class Text2SQLRouter(APIRouter):

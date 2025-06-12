@@ -2,7 +2,9 @@ from typing import Any, Dict, List, Optional
 
 from dbma.interface.services.context_service import IContextService
 from dbma.native.domain.agent import Agent
-from dbma.native.domain.agent_models import ContextAgentInput, ContextAgentResponse
+from dbma.native.domain.agent_models import (ContextAgentInput,
+                                             ContextAgentResponse)
+
 
 class ContextRetrieverAgent(Agent):
     """Agent responsible for retrieving relevant context and database schema."""

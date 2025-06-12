@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Any
+from typing import Any, Dict
+
 from dbma.native.domain.db_schema import DBSchema
+
 
 class ISchemaStorageService(ABC):
     @abstractmethod
