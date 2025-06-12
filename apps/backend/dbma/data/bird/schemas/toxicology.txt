@@ -1,0 +1,67 @@
+
+CREATE TABLE atom (
+	atom_id TEXT NOT NULL, 
+	molecule_id TEXT DEFAULT NULL, 
+	element TEXT DEFAULT NULL, 
+	PRIMARY KEY (atom_id), 
+	FOREIGN KEY(molecule_id) REFERENCES molecule (molecule_id)
+)
+
+/*
+3 rows from atom table:
+atom_id	molecule_id	element
+TR000_1	TR000	cl
+TR000_2	TR000	c
+TR000_3	TR000	cl
+*/
+
+
+CREATE TABLE bond (
+	bond_id TEXT NOT NULL, 
+	molecule_id TEXT DEFAULT NULL, 
+	bond_type TEXT DEFAULT NULL, 
+	PRIMARY KEY (bond_id), 
+	FOREIGN KEY(molecule_id) REFERENCES molecule (molecule_id)
+)
+
+/*
+3 rows from bond table:
+bond_id	molecule_id	bond_type
+TR000_1_2	TR000	-
+TR000_2_3	TR000	-
+TR000_2_4	TR000	-
+*/
+
+
+CREATE TABLE connected (
+	atom_id TEXT NOT NULL, 
+	atom_id2 TEXT NOT NULL, 
+	bond_id TEXT DEFAULT NULL, 
+	PRIMARY KEY (atom_id, atom_id2), 
+	FOREIGN KEY(bond_id) REFERENCES bond (bond_id), 
+	FOREIGN KEY(atom_id2) REFERENCES atom (atom_id), 
+	FOREIGN KEY(atom_id) REFERENCES atom (atom_id)
+)
+
+/*
+3 rows from connected table:
+atom_id	atom_id2	bond_id
+TR000_1	TR000_2	TR000_1_2
+TR000_2	TR000_1	TR000_1_2
+TR000_2	TR000_3	TR000_2_3
+*/
+
+
+CREATE TABLE molecule (
+	molecule_id TEXT NOT NULL, 
+	label TEXT DEFAULT NULL, 
+	PRIMARY KEY (molecule_id)
+)
+
+/*
+3 rows from molecule table:
+molecule_id	label
+TR000	+
+TR001	+
+TR002	-
+*/

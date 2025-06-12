@@ -1,0 +1,159 @@
+
+CREATE TABLE attendance (
+	link_to_event TEXT, 
+	link_to_member TEXT, 
+	PRIMARY KEY (link_to_event, link_to_member), 
+	FOREIGN KEY(link_to_event) REFERENCES event (event_id), 
+	FOREIGN KEY(link_to_member) REFERENCES member (member_id)
+)
+
+/*
+3 rows from attendance table:
+link_to_event	link_to_member
+rec2N69DMcrqN9PJC	recD078PnS3x2doBe
+rec2N69DMcrqN9PJC	recP6DJPyi5donvXL
+rec2N69DMcrqN9PJC	rec28ORZgcm1dtqBZ
+*/
+
+
+CREATE TABLE budget (
+	budget_id TEXT, 
+	category TEXT, 
+	spent REAL, 
+	remaining REAL, 
+	amount INTEGER, 
+	event_status TEXT, 
+	link_to_event TEXT, 
+	PRIMARY KEY (budget_id), 
+	FOREIGN KEY(link_to_event) REFERENCES event (event_id)
+)
+
+/*
+3 rows from budget table:
+budget_id	category	spent	remaining	amount	event_status	link_to_event
+rec0QmEc3cSQFQ6V2	Advertisement	67.81	7.19	75	Closed	recI43CzsZ0Q625ma
+rec1bG6HSft7XIvTP	Food	121.14	28.86	150	Closed	recggMW2eyCYceNcy
+rec1z6ISJU2HdIsVm	Food	20.2	-0.199999999999999	20	Closed	recJ4Witp9tpjaugn
+*/
+
+
+CREATE TABLE event (
+	event_id TEXT, 
+	event_name TEXT, 
+	event_date TEXT, 
+	type TEXT, 
+	notes TEXT, 
+	location TEXT, 
+	status TEXT, 
+	PRIMARY KEY (event_id)
+)
+
+/*
+3 rows from event table:
+event_id	event_name	event_date	type	notes	location	status
+rec0Si5cQ4rJRVzd6	March Meeting	2020-03-10T12:00:00	Meeting	None	MU 215	Open
+rec0akZnLLpGUloLH	Officers meeting - January	2020-01-14T09:30:00	Meeting	None	None	Open
+rec0dZPcWXF0QjNnE	Spring Elections	2019-11-24T09:00:00	Election	All active members can vote for new officers between 4pm-8pm.	MU 215	Open
+*/
+
+
+CREATE TABLE expense (
+	expense_id TEXT, 
+	expense_description TEXT, 
+	expense_date TEXT, 
+	cost REAL, 
+	approved TEXT, 
+	link_to_member TEXT, 
+	link_to_budget TEXT, 
+	PRIMARY KEY (expense_id), 
+	FOREIGN KEY(link_to_budget) REFERENCES budget (budget_id), 
+	FOREIGN KEY(link_to_member) REFERENCES member (member_id)
+)
+
+/*
+3 rows from expense table:
+expense_id	expense_description	expense_date	cost	approved	link_to_member	link_to_budget
+rec017x6R3hQqkLAo	Post Cards, Posters	2019-08-20	122.06	true	rec4BLdZHS2Blfp4v	recvKTAWAFKkVNnXQ
+rec1nIjoZKTYayqZ6	Water, Cookies	2019-10-08	20.2	true	recro8T1MPMwRadVH	recy8KY5bUdzF81vv
+rec1oMgNFt7Y0G40x	Pizza	2019-09-10	51.81	true	recD078PnS3x2doBe	recwXIiKoBMjXJsGZ
+*/
+
+
+CREATE TABLE income (
+	income_id TEXT, 
+	date_received TEXT, 
+	amount INTEGER, 
+	source TEXT, 
+	notes TEXT, 
+	link_to_member TEXT, 
+	PRIMARY KEY (income_id), 
+	FOREIGN KEY(link_to_member) REFERENCES member (member_id)
+)
+
+/*
+3 rows from income table:
+income_id	date_received	amount	source	notes	link_to_member
+rec0s9ZrO15zhzUeE	2019-10-17	50	Dues	None	reccW7q1KkhSKZsea
+rec7f5XMQZexgtQJo	2019-09-04	50	Dues	None	recTjHY5xXhvkCdVT
+rec8BUJa8GXUjiglg	2019-10-08	50	Dues	None	recUdRhbhcEO1Hk5r
+*/
+
+
+CREATE TABLE major (
+	major_id TEXT, 
+	major_name TEXT, 
+	department TEXT, 
+	college TEXT, 
+	PRIMARY KEY (major_id)
+)
+
+/*
+3 rows from major table:
+major_id	major_name	department	college
+rec06DF6vZ1CyPKpc	Outdoor Product Design and Development	School of Applied Sciences, Technology and Education	College of Agriculture and Applied Sciences
+rec09LedkREyskCNv	Agricultural Communication	School of Applied Sciences, Technology and Education	College of Agriculture and Applied Sciences
+rec0Eanv576RhQllI	Fisheries and Aquatic Sciences	Watershed Sciences Department	College of Natural Resources
+*/
+
+
+CREATE TABLE member (
+	member_id TEXT, 
+	first_name TEXT, 
+	last_name TEXT, 
+	email TEXT, 
+	position TEXT, 
+	t_shirt_size TEXT, 
+	phone TEXT, 
+	zip INTEGER, 
+	link_to_major TEXT, 
+	PRIMARY KEY (member_id), 
+	FOREIGN KEY(link_to_major) REFERENCES major (major_id), 
+	FOREIGN KEY(zip) REFERENCES zip_code (zip_code)
+)
+
+/*
+3 rows from member table:
+member_id	first_name	last_name	email	position	t_shirt_size	phone	zip	link_to_major
+rec1x5zBFIqoOuPW8	Angela	Sanders	angela.sanders@lpu.edu	Member	Medium	(651) 928-4507	55108	recxK3MHQFbR9J5uO
+rec280Sk7o31iG0Tx	Grant	Gilmour	grant.gilmour@lpu.edu	Member	X-Large	403-555-1310	29440	rec7BxKpjJ7bNph3O
+rec28ORZgcm1dtqBZ	Luisa	Guidi	luisa.guidi@lpu.edu	Member	Medium	442-555-5882	10002	recdIBgeU38UbV2sy
+*/
+
+
+CREATE TABLE zip_code (
+	zip_code INTEGER, 
+	type TEXT, 
+	city TEXT, 
+	county TEXT, 
+	state TEXT, 
+	short_state TEXT, 
+	PRIMARY KEY (zip_code)
+)
+
+/*
+3 rows from zip_code table:
+zip_code	type	city	county	state	short_state
+501	Unique	Holtsville	Suffolk County	New York	NY
+544	Unique	Holtsville	Suffolk County	New York	NY
+601	Standard	Adjuntas	Adjuntas Municipio	Puerto Rico	PR
+*/

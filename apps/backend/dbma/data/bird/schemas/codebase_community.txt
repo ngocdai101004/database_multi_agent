@@ -1,0 +1,197 @@
+
+CREATE TABLE "postHistory" (
+	"Id" INTEGER NOT NULL, 
+	"PostHistoryTypeId" INTEGER, 
+	"PostId" INTEGER, 
+	"RevisionGUID" TEXT, 
+	"CreationDate" DATETIME, 
+	"UserId" INTEGER, 
+	"Text" TEXT, 
+	"Comment" TEXT, 
+	"UserDisplayName" TEXT, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("PostId") REFERENCES posts ("Id"), 
+	FOREIGN KEY("UserId") REFERENCES users ("Id"), 
+	UNIQUE ("Id")
+)
+
+/*
+3 rows from postHistory table:
+Id	PostHistoryTypeId	PostId	RevisionGUID	CreationDate	UserId	Text	Comment	UserDisplayName
+1	2	1	e58bf7fd-e60f-4c58-a6e4-dfc91cf98a69	2010-07-19 19:12:12	8	How should I elicit prior distributions from experts when fitting a Bayesian model?		
+2	1	1	e58bf7fd-e60f-4c58-a6e4-dfc91cf98a69	2010-07-19 19:12:12	8	Eliciting priors from experts		
+3	3	1	e58bf7fd-e60f-4c58-a6e4-dfc91cf98a69	2010-07-19 19:12:12	8	<bayesian><prior><elicitation>		
+*/
+
+
+CREATE TABLE "postLinks" (
+	"Id" INTEGER NOT NULL, 
+	"CreationDate" DATETIME, 
+	"PostId" INTEGER, 
+	"RelatedPostId" INTEGER, 
+	"LinkTypeId" INTEGER, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("PostId") REFERENCES posts ("Id"), 
+	FOREIGN KEY("RelatedPostId") REFERENCES posts ("Id")
+)
+
+/*
+3 rows from postLinks table:
+Id	CreationDate	PostId	RelatedPostId	LinkTypeId
+108	2010-07-21 14:47:33	395	173	1
+145	2010-07-23 16:30:41	548	539	1
+217	2010-07-26 20:12:15	375	30	1
+*/
+
+
+CREATE TABLE badges (
+	"Id" INTEGER NOT NULL, 
+	"UserId" INTEGER, 
+	"Name" TEXT, 
+	"Date" DATETIME, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("UserId") REFERENCES users ("Id")
+)
+
+/*
+3 rows from badges table:
+Id	UserId	Name	Date
+1	5	Teacher	2010-07-19 19:39:07
+2	6	Teacher	2010-07-19 19:39:07
+3	8	Teacher	2010-07-19 19:39:07
+*/
+
+
+CREATE TABLE comments (
+	"Id" INTEGER NOT NULL, 
+	"PostId" INTEGER, 
+	"Score" INTEGER, 
+	"Text" TEXT, 
+	"CreationDate" DATETIME, 
+	"UserId" INTEGER, 
+	"UserDisplayName" TEXT, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("PostId") REFERENCES posts ("Id"), 
+	FOREIGN KEY("UserId") REFERENCES users ("Id")
+)
+
+/*
+3 rows from comments table:
+Id	PostId	Score	Text	CreationDate	UserId	UserDisplayName
+1	3	5	Could be a poster child fo argumentative and subjective.  At the least, need to define 'valuable'.	2010-07-19 19:15:52	13	None
+2	5	0	Yes, R is nice- but WHY is it 'valuable'.	2010-07-19 19:16:14	13	None
+3	9	0	Again- why?  How would I convince my boss to use this over, say, Excel.	2010-07-19 19:18:54	13	None
+*/
+
+
+CREATE TABLE posts (
+	"Id" INTEGER NOT NULL, 
+	"PostTypeId" INTEGER, 
+	"AcceptedAnswerId" INTEGER, 
+	"CreaionDate" DATETIME, 
+	"Score" INTEGER, 
+	"ViewCount" INTEGER, 
+	"Body" TEXT, 
+	"OwnerUserId" INTEGER, 
+	"LasActivityDate" DATETIME, 
+	"Title" TEXT, 
+	"Tags" TEXT, 
+	"AnswerCount" INTEGER, 
+	"CommentCount" INTEGER, 
+	"FavoriteCount" INTEGER, 
+	"LastEditorUserId" INTEGER, 
+	"LastEditDate" DATETIME, 
+	"CommunityOwnedDate" DATETIME, 
+	"ParentId" INTEGER, 
+	"ClosedDate" DATETIME, 
+	"OwnerDisplayName" TEXT, 
+	"LastEditorDisplayName" TEXT, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("LastEditorUserId") REFERENCES users ("Id"), 
+	FOREIGN KEY("OwnerUserId") REFERENCES users ("Id"), 
+	FOREIGN KEY("ParentId") REFERENCES posts ("Id"), 
+	UNIQUE ("Id")
+)
+
+/*
+3 rows from posts table:
+Id	PostTypeId	AcceptedAnswerId	CreaionDate	Score	ViewCount	Body	OwnerUserId	LasActivityDate	Title	Tags	AnswerCount	CommentCount	FavoriteCount	LastEditorUserId	LastEditDate	CommunityOwnedDate	ParentId	ClosedDate	OwnerDisplayName	LastEditorDisplayName
+1	1	15	2010-07-19 19:12:12	23	1278	<p>How should I elicit prior distributions from experts when fitting a Bayesian model?</p>
+	8	2010-09-15 21:08:26	Eliciting priors from experts	<bayesian><prior><elicitation>	5	1	14	None	None	None	None	None	None	None
+2	1	59	2010-07-19 19:12:57	22	8198	<p>In many different statistical methods there is an "assumption of normality".  What is "normality"	24	2012-11-12 09:21:54	What is normality?	<distributions><normality>	7	1	8	88	2010-08-07 17:56:44	None	None	None	None	None
+3	1	5	2010-07-19 19:13:28	54	3613	<p>What are some valuable Statistical Analysis open source projects available right now?</p>
+
+<p>Edi	18	2013-05-27 14:48:36	What are some valuable Statistical Analysis open source projects?	<software><open-source>	19	4	36	183	2011-02-12 05:50:03	2010-07-19 19:13:28	None	None	None	None
+*/
+
+
+CREATE TABLE tags (
+	"Id" INTEGER NOT NULL, 
+	"TagName" TEXT, 
+	"Count" INTEGER, 
+	"ExcerptPostId" INTEGER, 
+	"WikiPostId" INTEGER, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("ExcerptPostId") REFERENCES posts ("Id")
+)
+
+/*
+3 rows from tags table:
+Id	TagName	Count	ExcerptPostId	WikiPostId
+1	bayesian	1342	20258	20257
+2	prior	168	62158	62157
+3	elicitation	6	None	None
+*/
+
+
+CREATE TABLE users (
+	"Id" INTEGER NOT NULL, 
+	"Reputation" INTEGER, 
+	"CreationDate" DATETIME, 
+	"DisplayName" TEXT, 
+	"LastAccessDate" DATETIME, 
+	"WebsiteUrl" TEXT, 
+	"Location" TEXT, 
+	"AboutMe" TEXT, 
+	"Views" INTEGER, 
+	"UpVotes" INTEGER, 
+	"DownVotes" INTEGER, 
+	"AccountId" INTEGER, 
+	"Age" INTEGER, 
+	"ProfileImageUrl" TEXT, 
+	PRIMARY KEY ("Id"), 
+	UNIQUE ("Id")
+)
+
+/*
+3 rows from users table:
+Id	Reputation	CreationDate	DisplayName	LastAccessDate	WebsiteUrl	Location	AboutMe	Views	UpVotes	DownVotes	AccountId	Age	ProfileImageUrl
+-1	1	2010-07-19 06:55:26	Community	2010-07-19 06:55:26	http://meta.stackexchange.com/	on the server farm	<p>Hi, I'm not really a person.</p>
+
+<p>I'm a background process that helps keep this site clean!</p	0	5007	1920	-1	None	None
+2	101	2010-07-19 14:01:36	Geoff Dalgas	2013-11-12 22:07:23	http://stackoverflow.com	Corvallis, OR	<p>Developer on the StackOverflow team.  Find me on</p>
+
+<p><a href="http://www.twitter.com/SuperDal	25	3	0	2	37	None
+3	101	2010-07-19 15:34:50	Jarrod Dixon	2014-08-08 06:42:58	http://stackoverflow.com	New York, NY	<p><a href="http://blog.stackoverflow.com/2009/01/welcome-stack-overflow-valued-associate-00002/">De	22	19	0	3	35	None
+*/
+
+
+CREATE TABLE votes (
+	"Id" INTEGER NOT NULL, 
+	"PostId" INTEGER, 
+	"VoteTypeId" INTEGER, 
+	"CreationDate" DATE, 
+	"UserId" INTEGER, 
+	"BountyAmount" INTEGER, 
+	PRIMARY KEY ("Id"), 
+	FOREIGN KEY("PostId") REFERENCES posts ("Id"), 
+	FOREIGN KEY("UserId") REFERENCES users ("Id")
+)
+
+/*
+3 rows from votes table:
+Id	PostId	VoteTypeId	CreationDate	UserId	BountyAmount
+1	3	2	2010-07-19	None	None
+2	2	2	2010-07-19	None	None
+3	5	2	2010-07-19	None	None
+*/

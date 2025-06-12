@@ -1,0 +1,204 @@
+
+CREATE TABLE cards (
+	id INTEGER NOT NULL, 
+	artist TEXT, 
+	"asciiName" TEXT, 
+	availability TEXT, 
+	"borderColor" TEXT, 
+	"cardKingdomFoilId" TEXT, 
+	"cardKingdomId" TEXT, 
+	"colorIdentity" TEXT, 
+	"colorIndicator" TEXT, 
+	colors TEXT, 
+	"convertedManaCost" REAL, 
+	"duelDeck" TEXT, 
+	"edhrecRank" INTEGER, 
+	"faceConvertedManaCost" REAL, 
+	"faceName" TEXT, 
+	"flavorName" TEXT, 
+	"flavorText" TEXT, 
+	"frameEffects" TEXT, 
+	"frameVersion" TEXT, 
+	hand TEXT, 
+	"hasAlternativeDeckLimit" INTEGER DEFAULT 0 NOT NULL, 
+	"hasContentWarning" INTEGER DEFAULT 0 NOT NULL, 
+	"hasFoil" INTEGER DEFAULT 0 NOT NULL, 
+	"hasNonFoil" INTEGER DEFAULT 0 NOT NULL, 
+	"isAlternative" INTEGER DEFAULT 0 NOT NULL, 
+	"isFullArt" INTEGER DEFAULT 0 NOT NULL, 
+	"isOnlineOnly" INTEGER DEFAULT 0 NOT NULL, 
+	"isOversized" INTEGER DEFAULT 0 NOT NULL, 
+	"isPromo" INTEGER DEFAULT 0 NOT NULL, 
+	"isReprint" INTEGER DEFAULT 0 NOT NULL, 
+	"isReserved" INTEGER DEFAULT 0 NOT NULL, 
+	"isStarter" INTEGER DEFAULT 0 NOT NULL, 
+	"isStorySpotlight" INTEGER DEFAULT 0 NOT NULL, 
+	"isTextless" INTEGER DEFAULT 0 NOT NULL, 
+	"isTimeshifted" INTEGER DEFAULT 0 NOT NULL, 
+	keywords TEXT, 
+	layout TEXT, 
+	"leadershipSkills" TEXT, 
+	life TEXT, 
+	loyalty TEXT, 
+	"manaCost" TEXT, 
+	"mcmId" TEXT, 
+	"mcmMetaId" TEXT, 
+	"mtgArenaId" TEXT, 
+	"mtgjsonV4Id" TEXT, 
+	"mtgoFoilId" TEXT, 
+	"mtgoId" TEXT, 
+	"multiverseId" TEXT, 
+	name TEXT, 
+	number TEXT, 
+	"originalReleaseDate" TEXT, 
+	"originalText" TEXT, 
+	"originalType" TEXT, 
+	"otherFaceIds" TEXT, 
+	power TEXT, 
+	printings TEXT, 
+	"promoTypes" TEXT, 
+	"purchaseUrls" TEXT, 
+	rarity TEXT, 
+	"scryfallId" TEXT, 
+	"scryfallIllustrationId" TEXT, 
+	"scryfallOracleId" TEXT, 
+	"setCode" TEXT, 
+	side TEXT, 
+	subtypes TEXT, 
+	supertypes TEXT, 
+	"tcgplayerProductId" TEXT, 
+	text TEXT, 
+	toughness TEXT, 
+	type TEXT, 
+	types TEXT, 
+	uuid TEXT NOT NULL, 
+	variations TEXT, 
+	watermark TEXT, 
+	PRIMARY KEY (id)
+)
+
+/*
+3 rows from cards table:
+id	artist	asciiName	availability	borderColor	cardKingdomFoilId	cardKingdomId	colorIdentity	colorIndicator	colors	convertedManaCost	duelDeck	edhrecRank	faceConvertedManaCost	faceName	flavorName	flavorText	frameEffects	frameVersion	hand	hasAlternativeDeckLimit	hasContentWarning	hasFoil	hasNonFoil	isAlternative	isFullArt	isOnlineOnly	isOversized	isPromo	isReprint	isReserved	isStarter	isStorySpotlight	isTextless	isTimeshifted	keywords	layout	leadershipSkills	life	loyalty	manaCost	mcmId	mcmMetaId	mtgArenaId	mtgjsonV4Id	mtgoFoilId	mtgoId	multiverseId	name	number	originalReleaseDate	originalText	originalType	otherFaceIds	power	printings	promoTypes	purchaseUrls	rarity	scryfallId	scryfallIllustrationId	scryfallOracleId	setCode	side	subtypes	supertypes	tcgplayerProductId	text	toughness	type	types	uuid	variations	watermark
+1	Pete Venters	None	mtgo,paper	black	None	122719	W	None	W	7.0	None	15650	None	None	None	None	None	2003	None	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0	First strike	normal	None	None	None	{5}{W}{W}	16165	156	None	ad41be73-582f-58ed-abd4-a88c1f616ac3	27501	27500	130550	Ancestor's Chosen	1	None	First strike (This creature deals combat damage before creatures without first strike.)
+When Ancesto	Creature - Human Cleric	None	4	10E,JUD,UMA	None	{'cardKingdom': 'https://mtgjson.com/links/9fb51af0ad6f0736', 'cardmarket': 'https://mtgjson.com/lin	uncommon	7a5cd03c-4227-4551-aa4b-7d119f0468b5	be2f7173-c8b7-4172-a388-9b2c6b3c16e5	fc2ccab7-cab1-4463-b73d-898070136d74	10E	None	Human,Cleric	None	15032	First strike (This creature deals combat damage before creatures without first strike.)
+When Ancesto	4	Creature — Human Cleric	Creature	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c	b7c19924-b4bf-56fc-aa73-f586e940bd42	None
+2	Volkan Baǵa	None	mtgo,paper	black	None	122720	W	None	W	5.0	None	12702	None	None	None	Every tear shed is a drop of immortality.	None	2003	None	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0	Flying	normal	None	None	None	{4}{W}	16166	176	None	9eb2e54c-a12b-5e88-a9c0-d8c84c52d59c	26993	26992	129465	Angel of Mercy	2	None	Flying (This creature can't be blocked except by creatures with flying or reach.)
+When Angel of Merc	Creature - Angel	None	3	10E,8ED,9ED,DDC,DVD,IMA,INV,JMP,MB1,P02,PS11,PSAL,S99	None	{'cardKingdom': 'https://mtgjson.com/links/027095d094e58f5b', 'cardmarket': 'https://mtgjson.com/lin	uncommon	8f7980d4-da43-4d6d-ad16-14b8a34ae91d	e4d6c53f-e936-4be8-8b70-47c2be863b20	a2daaf32-dbfe-4618-892e-0da24f63a44a	10E	None	Angel	None	15033	Flying
+When Angel of Mercy enters the battlefield, you gain 3 life.	3	Creature — Angel	Creature	57aaebc1-850c-503d-9f6e-bb8d00d8bf7c	8fd4e2eb-3eb4-50ea-856b-ef638fa47f8a	None
+3	Justin Sweet	None	mtgo,paper	black	None	122725	W	None	W	4.0	None	11081	None	None	None	None	None	2003	None	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0	Flying	normal	None	None	None	{3}{W}	16171	368	None	c0de6fd8-367a-50fb-b2f4-2b8fa5aeb7d9	27473	27472	129470	Aven Cloudchaser	7	None	Flying (This creature can't be blocked except by creatures with flying or reach.)
+When Aven Cloudcha	Creature - Bird Soldier	None	2	10E,8ED,9ED,ODY	None	{'cardKingdom': 'https://mtgjson.com/links/9246105d88032a9f', 'cardmarket': 'https://mtgjson.com/lin	common	407110e9-19af-4ff5-97b2-c03225031a73	2eb663cd-020a-46d8-a6d9-bb63d4b5c848	48bda7dd-d023-41e8-8c28-e0cfda0d07ca	10E	None	Bird,Soldier	None	15045	Flying (This creature can't be blocked except by creatures with flying or reach.)
+When Aven Cloudcha	2	Creature — Bird Soldier	Creature	8ac972b5-9f6e-5cc8-91c3-b9a40a98232e	6adaf14d-43e3-521a-adf1-960c808e5b1a	None
+*/
+
+
+CREATE TABLE foreign_data (
+	id INTEGER NOT NULL, 
+	"flavorText" TEXT, 
+	language TEXT, 
+	multiverseid INTEGER, 
+	name TEXT, 
+	text TEXT, 
+	type TEXT, 
+	uuid TEXT, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(uuid) REFERENCES cards (uuid)
+)
+
+/*
+3 rows from foreign_data table:
+id	flavorText	language	multiverseid	name	text	type	uuid
+1	„Es ist der Wille aller, und meine Hand, die ihn ausführt."	German	148411	Ausgewählter der Ahnfrau	Erstschlag (Diese Kreatur fügt Kampfschaden vor Kreaturen ohne Erstschlag zu.)
+Wenn der Ausgewählte 	Kreatur — Mensch, Kleriker	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c
+2	"La voluntad de todos, realizada por mi mano."	Spanish	150317	Elegido de la Antepasada	Daña primero. (Esta criatura hace daño de combate antes que las criaturas sin la habilidad de dañar 	Criatura — Clérigo humano	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c
+3	« La volonté de tous passe par ma main. »	French	149934	Élu de l'Ancêtre	Initiative (Cette créature inflige des blessures de combat avant les créatures sans l'initiative.)
+Q	Créature : humain et clerc	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c
+*/
+
+
+CREATE TABLE legalities (
+	id INTEGER NOT NULL, 
+	format TEXT, 
+	status TEXT, 
+	uuid TEXT, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(uuid) REFERENCES cards (uuid)
+)
+
+/*
+3 rows from legalities table:
+id	format	status	uuid
+1	commander	Legal	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c
+2	duel	Legal	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c
+3	legacy	Legal	5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c
+*/
+
+
+CREATE TABLE rulings (
+	id INTEGER NOT NULL, 
+	date DATE, 
+	text TEXT, 
+	uuid TEXT, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(uuid) REFERENCES cards (uuid)
+)
+
+/*
+3 rows from rulings table:
+id	date	text	uuid
+1	2007-07-15	You draw the card when Bandage resolves, not when the damage is actually prevented.	6d268c95-c176-5766-9a46-c14f739aba1c
+2	2007-02-01	If you double a negative life total, you do the real math. A life total of -10 becomes -20.	56f4935b-f6c5-59b9-88bf-9bcce20247ce
+3	2007-07-15	Beacon of Immortality’s effect counts as life gain (or life loss, if the life total was negative) fo	56f4935b-f6c5-59b9-88bf-9bcce20247ce
+*/
+
+
+CREATE TABLE set_translations (
+	id INTEGER NOT NULL, 
+	language TEXT, 
+	"setCode" TEXT, 
+	translation TEXT, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY("setCode") REFERENCES sets (code)
+)
+
+/*
+3 rows from set_translations table:
+id	language	setCode	translation
+1	Chinese Simplified	10E	核心系列第十版
+2	Chinese Traditional	10E	核心系列第十版
+3	French	10E	Dixième édition
+*/
+
+
+CREATE TABLE sets (
+	id INTEGER NOT NULL, 
+	"baseSetSize" INTEGER, 
+	block TEXT, 
+	booster TEXT, 
+	code TEXT NOT NULL, 
+	"isFoilOnly" INTEGER DEFAULT 0 NOT NULL, 
+	"isForeignOnly" INTEGER DEFAULT 0 NOT NULL, 
+	"isNonFoilOnly" INTEGER DEFAULT 0 NOT NULL, 
+	"isOnlineOnly" INTEGER DEFAULT 0 NOT NULL, 
+	"isPartialPreview" INTEGER DEFAULT 0 NOT NULL, 
+	"keyruneCode" TEXT, 
+	"mcmId" INTEGER, 
+	"mcmIdExtras" INTEGER, 
+	"mcmName" TEXT, 
+	"mtgoCode" TEXT, 
+	name TEXT, 
+	"parentCode" TEXT, 
+	"releaseDate" DATE, 
+	"tcgplayerGroupId" INTEGER, 
+	"totalSetSize" INTEGER, 
+	type TEXT, 
+	PRIMARY KEY (id)
+)
+
+/*
+3 rows from sets table:
+id	baseSetSize	block	booster	code	isFoilOnly	isForeignOnly	isNonFoilOnly	isOnlineOnly	isPartialPreview	keyruneCode	mcmId	mcmIdExtras	mcmName	mtgoCode	name	parentCode	releaseDate	tcgplayerGroupId	totalSetSize	type
+1	383	Core Set	{'default': {'boosters': [{'contents': {'basic': 1, 'common': 10, 'rare': 1, 'uncommon': 3}, 'weight	10E	0	0	0	0	0	10E	74	None	Tenth Edition	10E	Tenth Edition	None	2007-07-13	1	508	core
+2	302	Core Set	{'default': {'boosters': [{'contents': {'common': 11, 'rare': 1, 'uncommon': 3}, 'weight': 1}], 'boo	2ED	0	0	1	0	0	2ED	None	None	None	None	Unlimited Edition	None	1993-12-01	115	302	core
+3	332	None	{'default': {'boosters': [{'contents': {'common': 8, 'dedicatedFoil2xm': 2, 'rareMythic': 2, 'uncomm	2XM	0	0	0	0	0	2XM	3204	3209	Double Masters	2XM	Double Masters	None	2020-08-07	2655	384	masters
+*/

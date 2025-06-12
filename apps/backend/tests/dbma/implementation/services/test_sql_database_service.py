@@ -1,25 +1,28 @@
-# import pytest
-# from pathlib import Path
-# from unittest.mock import Mock, patch
-# from dbma.implementation.services.sql_database_service import SQLDatabaseService
-# from dbma.implementation.services.openai_llm_service import OpenAILLMService
-# from langchain_community.utilities import SQLDatabase
+import pytest
+from pathlib import Path
+from unittest.mock import Mock, patch
+from dbma.implementation.services.sql_database_service import SQLDatabaseService
+from dbma.implementation.services.openai_llm_service import OpenAILLMService
+from langchain_community.utilities import SQLDatabase
+from dbma.dependencies.container import Container
 
-# @pytest.fixture
-# def mock_db_path():
-#     return Path(__file__).parent / "test_data" / "cinema" / "cinema"
+@pytest.fixture
+def schema_name():
+    return "california_schools"
 
-# @pytest.fixture
-# def sql_database_service(mock_db_path):
-#     llm_service = OpenAILLMService()
-#     return SQLDatabaseService(mock_db_path, llm_service)
+@pytest.fixture
+def llm_service(container: Container):
+    return container.llm_service()
 
-# def test_init_sql_database_service(sql_database_service: SQLDatabaseService, mock_db_path: Path):
+@pytest.fixture
+def sql_database_service(schema_name: str, llm_service: OpenAILLMService):
+    return SQLDatabaseService(schema_name, llm_service)
+
+# def test_init_sql_database_service(sql_database_service: SQLDatabaseService):
 #     """Test initialization of SQLDatabaseService"""
 #     db: SQLDatabase = sql_database_service.db
 #     print("--------------------------------")
 #     print("test_init_sql_database_service: Test table info: ", db.table_info)
-#     print("test_init_sql_database_service: Test db path: ", mock_db_path)
 #     print("--------------------------------")
 #     # Assert
 #     assert sql_database_service.db is not None
@@ -53,25 +56,20 @@
 #     assert "sql_db_list_tables" in list_tables_tool.name.lower()
 #     assert "sql_db_query_checker" in query_checker_tool.name.lower()
     
-# def test_execute_query_valid(sql_database_service: SQLDatabaseService):
-#     """Test executing a valid query"""
-#     # Arrange
-#     valid_query = """SELECT f.Title, c.Name AS Cinema_Name, c.Capacity, s.Date, s.Price
-#     FROM schedule s
-#     JOIN film f ON s.Film_ID = f.Film_ID
-#     JOIN cinema c ON s.Cinema_ID = c.Cinema_ID
-#     WHERE c.Capacity > 500;
-#     """
+def test_execute_query_valid(sql_database_service: SQLDatabaseService):
+    """Test executing a valid query"""
+    # Arrange
+    valid_query = """SELECT DISTINCT Zip FROM schools WHERE District = 'Fresno County Office of Education' AND Charter = 1"""
     
-#     # Act
-#     result = sql_database_service.execute_query(valid_query)
-#     print("--------------------------------")
-#     print("test_execute_query_valid: Test result: ", result)
-#     print("--------------------------------")
+    # Act
+    result = sql_database_service.execute_query(valid_query)
+    print("--------------------------------")
+    print("test_execute_query_valid: Test result: ", result)
+    print("--------------------------------")
     
-#     # Assert
-#     assert result is not None
-#     assert isinstance(result, str)
+    # Assert
+    assert result is not None
+    assert isinstance(result, str)
 
 # def test_execute_query_invalid(sql_database_service: SQLDatabaseService):
 #     """Test executing an invalid query"""
@@ -117,12 +115,7 @@
 # async def test_query_checker_tool(sql_database_service: SQLDatabaseService):
 #     """Test query checker"""
 #     # Arrange
-#     query = """SELECT f.Title, c.Name AS Cinema_Name, c.Capacity, s.Date, s.Price
-#     FROM schedule s
-#     JON film f ON s.Film_ID = f.Film_ID
-#     JOIN cinema c ON s.Cinema_ID = c.Cinema_ID
-#     WHRE c.Capacity > 500;
-#     """
+#     query = """SELECT T2.Zip FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.`District Name` = 'Fresno County Office of Education' AND T1.`Charter School (Y/N)` = 1"""
 #     query_checker_tool = sql_database_service.get_query_checker_tool()
     
 #     # Action
@@ -139,13 +132,7 @@
 # async def test_query_tool(sql_database_service: SQLDatabaseService):
 #     """Test query tool"""
 #     # Arrange
-#     query = """
-# SELECT f.Title, c.Name AS Cinema_Name, c.Capacity, s.Date, s.Price
-# FROM schedules s
-# JOIN film f ON s.Film_ID = f.Film_ID
-# JOIN cinema c ON s.Cinema_ID = c.Cinema_ID
-# WHERE c.Capacity > 500;
-#     """
+#     query = """SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = 'Continuation School' AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3"""
 #     query_tool = sql_database_service.get_query_tool()
     
 #     # Action

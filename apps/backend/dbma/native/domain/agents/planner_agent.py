@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 from dbma.interface.services.planner_service import IPlannerService
 from dbma.native.domain.agent import Agent
-
+from dbma.native.domain.agent_models import PlannerAgentInput, PlannerAgentResponse
 
 class PlannerAgent(Agent):
     """Agent responsible for understanding user intent and planning the query execution."""
@@ -15,7 +15,7 @@ class PlannerAgent(Agent):
     ):
         self.planner_service = planner_service
         
-    async def execute(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def execute(self, input_data: PlannerAgentInput) -> PlannerAgentResponse:
         """Process user input to understand intent and plan execution.
         
         Args:
@@ -35,5 +35,5 @@ class PlannerAgent(Agent):
         # TODO: Implement entity extraction
         # TODO: Implement complexity estimation
         
-        result = await self.planner_service.plan(input_data['query'], input_data['context'])
+        result : PlannerAgentResponse = await self.planner_service.plan(input_data=input_data)
         return result

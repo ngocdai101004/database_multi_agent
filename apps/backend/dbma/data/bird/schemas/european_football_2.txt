@@ -1,0 +1,325 @@
+
+CREATE TABLE "Country" (
+	id INTEGER, 
+	name TEXT, 
+	PRIMARY KEY (id), 
+	UNIQUE (name)
+)
+
+/*
+3 rows from Country table:
+id	name
+1	Belgium
+1729	England
+4769	France
+*/
+
+
+CREATE TABLE "League" (
+	id INTEGER, 
+	country_id INTEGER, 
+	name TEXT, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(country_id) REFERENCES country (id), 
+	UNIQUE (name)
+)
+
+/*
+3 rows from League table:
+id	country_id	name
+1	1	Belgium Jupiler League
+1729	1729	England Premier League
+4769	4769	France Ligue 1
+*/
+
+
+CREATE TABLE "Match" (
+	id INTEGER, 
+	country_id INTEGER, 
+	league_id INTEGER, 
+	season TEXT, 
+	stage INTEGER, 
+	date TEXT, 
+	match_api_id INTEGER, 
+	home_team_api_id INTEGER, 
+	away_team_api_id INTEGER, 
+	home_team_goal INTEGER, 
+	away_team_goal INTEGER, 
+	"home_player_X1" INTEGER, 
+	"home_player_X2" INTEGER, 
+	"home_player_X3" INTEGER, 
+	"home_player_X4" INTEGER, 
+	"home_player_X5" INTEGER, 
+	"home_player_X6" INTEGER, 
+	"home_player_X7" INTEGER, 
+	"home_player_X8" INTEGER, 
+	"home_player_X9" INTEGER, 
+	"home_player_X10" INTEGER, 
+	"home_player_X11" INTEGER, 
+	"away_player_X1" INTEGER, 
+	"away_player_X2" INTEGER, 
+	"away_player_X3" INTEGER, 
+	"away_player_X4" INTEGER, 
+	"away_player_X5" INTEGER, 
+	"away_player_X6" INTEGER, 
+	"away_player_X7" INTEGER, 
+	"away_player_X8" INTEGER, 
+	"away_player_X9" INTEGER, 
+	"away_player_X10" INTEGER, 
+	"away_player_X11" INTEGER, 
+	"home_player_Y1" INTEGER, 
+	"home_player_Y2" INTEGER, 
+	"home_player_Y3" INTEGER, 
+	"home_player_Y4" INTEGER, 
+	"home_player_Y5" INTEGER, 
+	"home_player_Y6" INTEGER, 
+	"home_player_Y7" INTEGER, 
+	"home_player_Y8" INTEGER, 
+	"home_player_Y9" INTEGER, 
+	"home_player_Y10" INTEGER, 
+	"home_player_Y11" INTEGER, 
+	"away_player_Y1" INTEGER, 
+	"away_player_Y2" INTEGER, 
+	"away_player_Y3" INTEGER, 
+	"away_player_Y4" INTEGER, 
+	"away_player_Y5" INTEGER, 
+	"away_player_Y6" INTEGER, 
+	"away_player_Y7" INTEGER, 
+	"away_player_Y8" INTEGER, 
+	"away_player_Y9" INTEGER, 
+	"away_player_Y10" INTEGER, 
+	"away_player_Y11" INTEGER, 
+	home_player_1 INTEGER, 
+	home_player_2 INTEGER, 
+	home_player_3 INTEGER, 
+	home_player_4 INTEGER, 
+	home_player_5 INTEGER, 
+	home_player_6 INTEGER, 
+	home_player_7 INTEGER, 
+	home_player_8 INTEGER, 
+	home_player_9 INTEGER, 
+	home_player_10 INTEGER, 
+	home_player_11 INTEGER, 
+	away_player_1 INTEGER, 
+	away_player_2 INTEGER, 
+	away_player_3 INTEGER, 
+	away_player_4 INTEGER, 
+	away_player_5 INTEGER, 
+	away_player_6 INTEGER, 
+	away_player_7 INTEGER, 
+	away_player_8 INTEGER, 
+	away_player_9 INTEGER, 
+	away_player_10 INTEGER, 
+	away_player_11 INTEGER, 
+	goal TEXT, 
+	shoton TEXT, 
+	shotoff TEXT, 
+	foulcommit TEXT, 
+	card TEXT, 
+	"cross" TEXT, 
+	corner TEXT, 
+	possession TEXT, 
+	"B365H" REAL, 
+	"B365D" REAL, 
+	"B365A" REAL, 
+	"BWH" REAL, 
+	"BWD" REAL, 
+	"BWA" REAL, 
+	"IWH" REAL, 
+	"IWD" REAL, 
+	"IWA" REAL, 
+	"LBH" REAL, 
+	"LBD" REAL, 
+	"LBA" REAL, 
+	"PSH" REAL, 
+	"PSD" REAL, 
+	"PSA" REAL, 
+	"WHH" REAL, 
+	"WHD" REAL, 
+	"WHA" REAL, 
+	"SJH" REAL, 
+	"SJD" REAL, 
+	"SJA" REAL, 
+	"VCH" REAL, 
+	"VCD" REAL, 
+	"VCA" REAL, 
+	"GBH" REAL, 
+	"GBD" REAL, 
+	"GBA" REAL, 
+	"BSH" REAL, 
+	"BSD" REAL, 
+	"BSA" REAL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(away_player_11) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_10) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_9) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_8) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_7) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_6) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_5) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_4) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_3) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_2) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_player_1) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_11) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_10) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_9) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_8) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_7) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_6) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_5) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_4) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_3) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_2) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(home_player_1) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(away_team_api_id) REFERENCES "Team" (team_api_id), 
+	FOREIGN KEY(home_team_api_id) REFERENCES "Team" (team_api_id), 
+	FOREIGN KEY(league_id) REFERENCES "League" (id), 
+	FOREIGN KEY(country_id) REFERENCES "Country" (id)
+)
+
+/*
+3 rows from Match table:
+id	country_id	league_id	season	stage	date	match_api_id	home_team_api_id	away_team_api_id	home_team_goal	away_team_goal	home_player_X1	home_player_X2	home_player_X3	home_player_X4	home_player_X5	home_player_X6	home_player_X7	home_player_X8	home_player_X9	home_player_X10	home_player_X11	away_player_X1	away_player_X2	away_player_X3	away_player_X4	away_player_X5	away_player_X6	away_player_X7	away_player_X8	away_player_X9	away_player_X10	away_player_X11	home_player_Y1	home_player_Y2	home_player_Y3	home_player_Y4	home_player_Y5	home_player_Y6	home_player_Y7	home_player_Y8	home_player_Y9	home_player_Y10	home_player_Y11	away_player_Y1	away_player_Y2	away_player_Y3	away_player_Y4	away_player_Y5	away_player_Y6	away_player_Y7	away_player_Y8	away_player_Y9	away_player_Y10	away_player_Y11	home_player_1	home_player_2	home_player_3	home_player_4	home_player_5	home_player_6	home_player_7	home_player_8	home_player_9	home_player_10	home_player_11	away_player_1	away_player_2	away_player_3	away_player_4	away_player_5	away_player_6	away_player_7	away_player_8	away_player_9	away_player_10	away_player_11	goal	shoton	shotoff	foulcommit	card	cross	corner	possession	B365H	B365D	B365A	BWH	BWD	BWA	IWH	IWD	IWA	LBH	LBD	LBA	PSH	PSD	PSA	WHH	WHD	WHA	SJH	SJD	SJA	VCH	VCD	VCA	GBH	GBD	GBA	BSH	BSD	BSA
+1	1	1	2008/2009	1	2008-08-17 00:00:00	492473	9987	9993	1	1	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	1.73	3.4	5.0	1.75	3.35	4.2	1.85	3.2	3.5	1.8	3.3	3.75	None	None	None	1.7	3.3	4.33	1.9	3.3	4.0	1.65	3.4	4.5	1.78	3.25	4.0	1.73	3.4	4.2
+2	1	1	2008/2009	1	2008-08-16 00:00:00	492474	10000	9994	0	0	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	1.95	3.2	3.6	1.8	3.3	3.95	1.9	3.2	3.5	1.9	3.2	3.5	None	None	None	1.83	3.3	3.6	1.95	3.3	3.8	2.0	3.25	3.25	1.85	3.25	3.75	1.91	3.25	3.6
+3	1	1	2008/2009	1	2008-08-16 00:00:00	492475	9984	8635	0	3	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	None	2.38	3.3	2.75	2.4	3.3	2.55	2.6	3.1	2.3	2.5	3.2	2.5	None	None	None	2.5	3.25	2.4	2.63	3.3	2.5	2.35	3.25	2.65	2.5	3.2	2.5	2.3	3.2	2.75
+*/
+
+
+CREATE TABLE "Player" (
+	id INTEGER, 
+	player_api_id INTEGER, 
+	player_name TEXT, 
+	player_fifa_api_id INTEGER, 
+	birthday TEXT, 
+	height INTEGER, 
+	weight INTEGER, 
+	PRIMARY KEY (id), 
+	UNIQUE (player_api_id), 
+	UNIQUE (player_fifa_api_id)
+)
+
+/*
+3 rows from Player table:
+id	player_api_id	player_name	player_fifa_api_id	birthday	height	weight
+1	505942	Aaron Appindangoye	218353	1992-02-29 00:00:00	182.88	187
+2	155782	Aaron Cresswell	189615	1989-12-15 00:00:00	170.18	146
+3	162549	Aaron Doran	186170	1991-05-13 00:00:00	170.18	163
+*/
+
+
+CREATE TABLE "Player_Attributes" (
+	id INTEGER, 
+	player_fifa_api_id INTEGER, 
+	player_api_id INTEGER, 
+	date TEXT, 
+	overall_rating INTEGER, 
+	potential INTEGER, 
+	preferred_foot TEXT, 
+	attacking_work_rate TEXT, 
+	defensive_work_rate TEXT, 
+	crossing INTEGER, 
+	finishing INTEGER, 
+	heading_accuracy INTEGER, 
+	short_passing INTEGER, 
+	volleys INTEGER, 
+	dribbling INTEGER, 
+	curve INTEGER, 
+	free_kick_accuracy INTEGER, 
+	long_passing INTEGER, 
+	ball_control INTEGER, 
+	acceleration INTEGER, 
+	sprint_speed INTEGER, 
+	agility INTEGER, 
+	reactions INTEGER, 
+	balance INTEGER, 
+	shot_power INTEGER, 
+	jumping INTEGER, 
+	stamina INTEGER, 
+	strength INTEGER, 
+	long_shots INTEGER, 
+	aggression INTEGER, 
+	interceptions INTEGER, 
+	positioning INTEGER, 
+	vision INTEGER, 
+	penalties INTEGER, 
+	marking INTEGER, 
+	standing_tackle INTEGER, 
+	sliding_tackle INTEGER, 
+	gk_diving INTEGER, 
+	gk_handling INTEGER, 
+	gk_kicking INTEGER, 
+	gk_positioning INTEGER, 
+	gk_reflexes INTEGER, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(player_api_id) REFERENCES "Player" (player_api_id), 
+	FOREIGN KEY(player_fifa_api_id) REFERENCES "Player" (player_fifa_api_id)
+)
+
+/*
+3 rows from Player_Attributes table:
+id	player_fifa_api_id	player_api_id	date	overall_rating	potential	preferred_foot	attacking_work_rate	defensive_work_rate	crossing	finishing	heading_accuracy	short_passing	volleys	dribbling	curve	free_kick_accuracy	long_passing	ball_control	acceleration	sprint_speed	agility	reactions	balance	shot_power	jumping	stamina	strength	long_shots	aggression	interceptions	positioning	vision	penalties	marking	standing_tackle	sliding_tackle	gk_diving	gk_handling	gk_kicking	gk_positioning	gk_reflexes
+1	218353	505942	2016-02-18 00:00:00	67	71	right	medium	medium	49	44	71	61	44	51	45	39	64	49	60	64	59	47	65	55	58	54	76	35	71	70	45	54	48	65	69	69	6	11	10	8	8
+2	218353	505942	2015-11-19 00:00:00	67	71	right	medium	medium	49	44	71	61	44	51	45	39	64	49	60	64	59	47	65	55	58	54	76	35	71	70	45	54	48	65	69	69	6	11	10	8	8
+3	218353	505942	2015-09-21 00:00:00	62	66	right	medium	medium	49	44	71	61	44	51	45	39	64	49	60	64	59	47	65	55	58	54	76	35	63	41	45	54	48	65	66	69	6	11	10	8	8
+*/
+
+
+CREATE TABLE "Team" (
+	id INTEGER, 
+	team_api_id INTEGER, 
+	team_fifa_api_id INTEGER, 
+	team_long_name TEXT, 
+	team_short_name TEXT, 
+	PRIMARY KEY (id), 
+	UNIQUE (team_api_id)
+)
+
+/*
+3 rows from Team table:
+id	team_api_id	team_fifa_api_id	team_long_name	team_short_name
+1	9987	673	KRC Genk	GEN
+2	9993	675	Beerschot AC	BAC
+3	10000	15005	SV Zulte-Waregem	ZUL
+*/
+
+
+CREATE TABLE "Team_Attributes" (
+	id INTEGER, 
+	team_fifa_api_id INTEGER, 
+	team_api_id INTEGER, 
+	date TEXT, 
+	"buildUpPlaySpeed" INTEGER, 
+	"buildUpPlaySpeedClass" TEXT, 
+	"buildUpPlayDribbling" INTEGER, 
+	"buildUpPlayDribblingClass" TEXT, 
+	"buildUpPlayPassing" INTEGER, 
+	"buildUpPlayPassingClass" TEXT, 
+	"buildUpPlayPositioningClass" TEXT, 
+	"chanceCreationPassing" INTEGER, 
+	"chanceCreationPassingClass" TEXT, 
+	"chanceCreationCrossing" INTEGER, 
+	"chanceCreationCrossingClass" TEXT, 
+	"chanceCreationShooting" INTEGER, 
+	"chanceCreationShootingClass" TEXT, 
+	"chanceCreationPositioningClass" TEXT, 
+	"defencePressure" INTEGER, 
+	"defencePressureClass" TEXT, 
+	"defenceAggression" INTEGER, 
+	"defenceAggressionClass" TEXT, 
+	"defenceTeamWidth" INTEGER, 
+	"defenceTeamWidthClass" TEXT, 
+	"defenceDefenderLineClass" TEXT, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(team_api_id) REFERENCES "Team" (team_api_id), 
+	FOREIGN KEY(team_fifa_api_id) REFERENCES "Team" (team_fifa_api_id)
+)
+
+/*
+3 rows from Team_Attributes table:
+id	team_fifa_api_id	team_api_id	date	buildUpPlaySpeed	buildUpPlaySpeedClass	buildUpPlayDribbling	buildUpPlayDribblingClass	buildUpPlayPassing	buildUpPlayPassingClass	buildUpPlayPositioningClass	chanceCreationPassing	chanceCreationPassingClass	chanceCreationCrossing	chanceCreationCrossingClass	chanceCreationShooting	chanceCreationShootingClass	chanceCreationPositioningClass	defencePressure	defencePressureClass	defenceAggression	defenceAggressionClass	defenceTeamWidth	defenceTeamWidthClass	defenceDefenderLineClass
+1	434	9930	2010-02-22 00:00:00	60	Balanced	None	Little	50	Mixed	Organised	60	Normal	65	Normal	55	Normal	Organised	50	Medium	55	Press	45	Normal	Cover
+2	434	9930	2014-09-19 00:00:00	52	Balanced	48	Normal	56	Mixed	Organised	54	Normal	63	Normal	64	Normal	Organised	47	Medium	44	Press	54	Normal	Cover
+3	434	9930	2015-09-10 00:00:00	47	Balanced	41	Normal	54	Mixed	Organised	54	Normal	63	Normal	64	Normal	Organised	47	Medium	44	Press	54	Normal	Cover
+*/

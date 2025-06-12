@@ -1,12 +1,15 @@
 from typing import Any, Dict, List, Optional
 
 from dbma.native.domain.agent import Agent
-
+from dbma.interface.services.sql_generation_service import ISQLGenerationService
+from dbma.native.domain.agent_models import SQLGeneratorAgentInput, SQLGeneratorAgentResponse
 
 class SQLGeneratorAgent(Agent):
     """Agent responsible for generating SQL queries from natural language."""
-    
-    async def execute(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+    def __init__(self, sql_generation_service: ISQLGenerationService):
+        self.sql_generation_service = sql_generation_service
+        
+    async def execute(self, input_data: SQLGeneratorAgentInput) -> SQLGeneratorAgentResponse:
         """Generate SQL queries from natural language input.
         
         Args:
@@ -21,7 +24,8 @@ class SQLGeneratorAgent(Agent):
         # TODO: Implement SQL generation
         # TODO: Implement candidate selection
         # TODO: Implement confidence scoring
-        return {}
+        result : SQLGeneratorAgentResponse = await self.sql_generation_service.generate_sql(input_data=input_data)
+        return result
     
     async def validate(self, result: Dict[str, Any]) -> bool:
         """Validate the generated SQL."""
