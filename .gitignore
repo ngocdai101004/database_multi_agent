@@ -25,6 +25,14 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+apps/backend/dbma/data/spider_data/
+apps/backend/dbma/data/local_sqlite/
+apps/backend/dbma/data/spider_data/database/baseball_1/schema.sql
+apps/backend/dbma/data/spider_data/database/wta_1/wta_1.sqlite
+apps/backend/dbma/data/spider_data/database/soccer_1/schema.sql
+apps/backend/dbma/data/spider_data/database/soccer_1/soccer_1.sqlite
+
+*.sqlite
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
