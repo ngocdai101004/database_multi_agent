@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from dbma.native.domain.enum.sender_type import SenderType
+
 
 class Message:
     """

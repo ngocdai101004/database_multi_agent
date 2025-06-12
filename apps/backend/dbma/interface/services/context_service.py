@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
-from dbma.native.domain.agent_models import ContextAgentInput, ContextAgentResponse
+
+from dbma.native.domain.agent_models import (ContextAgentInput,
+                                             ContextAgentResponse)
+
 
 class IContextService(ABC):
     @abstractmethod

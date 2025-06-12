@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 from dbma.interface.services.sql_database_service import ISQLDatabaseService
+from dbma.native.domain.agent_models import (SQLGeneratorAgentInput,
+                                             SQLGeneratorAgentResponse)
 from langgraph.graph.graph import CompiledGraph
-from dbma.native.domain.agent_models import SQLGeneratorAgentInput, SQLGeneratorAgentResponse
+
 
 class ISQLGenerationService(ABC):
     @abstractmethod

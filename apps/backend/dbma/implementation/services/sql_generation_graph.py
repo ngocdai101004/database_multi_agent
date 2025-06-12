@@ -1,16 +1,20 @@
+import logging
 import random
-from typing import List, Dict, Any, TypedDict, Optional
-from pydantic import Field, BaseModel
-from langgraph.graph import StateGraph, END
-from langgraph.graph.graph import CompiledGraph
+from typing import Any, Dict, List, Optional, TypedDict
+
+from dbma.implementation.services.sql_database_service import \
+    SQLDatabaseService
+from dbma.interface.services.llm_service import ILLMService
+from dbma.interface.services.sql_database_service import ISQLDatabaseService
+from dbma.interface.services.sql_generation_service import \
+    ISQLGenerationService
 from langchain.prompts import PromptTemplate
 from langchain_core.language_models import BaseChatModel
-from langchain_core.messages import HumanMessage, AIMessage, BaseMessage, SystemMessage
-from dbma.interface.services.sql_generation_service import ISQLGenerationService
-from dbma.interface.services.sql_database_service import ISQLDatabaseService
-from dbma.interface.services.llm_service import ILLMService
-from dbma.implementation.services.sql_database_service import SQLDatabaseService
-import logging
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     SystemMessage)
+from langgraph.graph import END, StateGraph
+from langgraph.graph.graph import CompiledGraph
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger("dbma")
 

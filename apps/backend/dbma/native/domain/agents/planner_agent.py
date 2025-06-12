@@ -2,7 +2,9 @@ from typing import Any, Dict, List, Optional
 
 from dbma.interface.services.planner_service import IPlannerService
 from dbma.native.domain.agent import Agent
-from dbma.native.domain.agent_models import PlannerAgentInput, PlannerAgentResponse
+from dbma.native.domain.agent_models import (PlannerAgentInput,
+                                             PlannerAgentResponse)
+
 
 class PlannerAgent(Agent):
     """Agent responsible for understanding user intent and planning the query execution."""

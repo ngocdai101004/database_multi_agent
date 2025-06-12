@@ -1,8 +1,11 @@
 from typing import Any, Dict, List, Optional
 
+from dbma.interface.services.sql_generation_service import \
+    ISQLGenerationService
 from dbma.native.domain.agent import Agent
-from dbma.interface.services.sql_generation_service import ISQLGenerationService
-from dbma.native.domain.agent_models import SQLGeneratorAgentInput, SQLGeneratorAgentResponse
+from dbma.native.domain.agent_models import (SQLGeneratorAgentInput,
+                                             SQLGeneratorAgentResponse)
+
 
 class SQLGeneratorAgent(Agent):
     """Agent responsible for generating SQL queries from natural language."""

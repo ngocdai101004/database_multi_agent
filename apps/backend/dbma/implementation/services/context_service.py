@@ -1,14 +1,15 @@
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-from langchain_core.tools import Tool
 
 from dbma.interface.services.context_service import IContextService
 from dbma.interface.services.llm_service import ILLMService
-from dbma.interface.services.schema_storage_service import ISchemaStorageService
+from dbma.interface.services.schema_storage_service import \
+    ISchemaStorageService
+from dbma.native.domain.agent_models import (ContextAgentInput,
+                                             ContextAgentResponse)
 from dbma.native.domain.tool import SchemaTool
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.tools import Tool
-from dbma.native.domain.agent_models import ContextAgentInput, ContextAgentResponse
+from pydantic import BaseModel
 
 instructions_prompt = """
 You are a helpful assistant with expertise in database schema analysis and query understanding.

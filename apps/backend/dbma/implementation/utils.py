@@ -1,7 +1,7 @@
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, BaseMessage
-from dbma.native.domain.message import Message
 from dbma.native.domain.enum.sender_type import SenderType
-
+from dbma.native.domain.message import Message
+from langchain_core.messages import (AIMessage, BaseMessage, HumanMessage,
+                                     SystemMessage)
 
 
 def convert_message_to_langchain_message(message: Message) -> BaseMessage:

@@ -1,14 +1,19 @@
 import os
-import pytest
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict
 
+import pytest
+from dbma.dependencies.container import Container
+from dbma.implementation.services.context_service import (ContextOutput,
+                                                          ContextService)
 from dbma.implementation.services.gemini_llm_service import GeminiLLMService
 from dbma.implementation.services.openai_llm_service import OpenAILLMService
-from dbma.implementation.services.context_service import ContextService, ContextOutput
-from dbma.implementation.services.schema_storage_service import SchemaStorageService
-from dbma.dependencies.container import Container
-from dbma.native.domain.agent_models import ContextAgentInput, ContextAgentResponse
+from dbma.implementation.services.schema_storage_service import \
+    SchemaStorageService
+from dbma.native.domain.agent_models import (ContextAgentInput,
+                                             ContextAgentResponse)
+
+
 class TestContextService:
     @pytest.fixture
     def schema_storage_service(self):

@@ -1,13 +1,17 @@
-import pytest
 from datetime import datetime
 from typing import List
 
+import pytest
 from dbma.implementation.services.gemini_llm_service import GeminiLLMService
 from dbma.implementation.services.openai_llm_service import OpenAILLMService
-from dbma.implementation.services.planner_service import PlannerService, PlannerOutput
+from dbma.implementation.services.planner_service import (PlannerOutput,
+                                                          PlannerService)
+from dbma.native.domain.agent_models import (PlannerAgentInput,
+                                             PlannerAgentResponse)
 from dbma.native.domain.enum.sender_type import SenderType
 from dbma.native.domain.message import Message
-from dbma.native.domain.agent_models import PlannerAgentInput, PlannerAgentResponse
+
+
 class TestPlannerService:
     @pytest.fixture
     def gemini_llm_service(self):
